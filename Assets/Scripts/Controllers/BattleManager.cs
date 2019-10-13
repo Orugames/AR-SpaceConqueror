@@ -61,15 +61,6 @@ public class BattleManager : MonoBehaviour
             // Send the number according to the half of the score of the planet
             for (int i = 0; i < planetView.planetData.score; i++)
             {
-                Vector3 direction = (planetAttacked.transform.position - planetView.transform.position).normalized;
-
-                float angle = i * Mathf.PI * 2f / planetView.planetData.score;
-
-                Vector3 planetPos = planetView.transform.position;
-               //Vector3 radiusStart = new Vector3(Mathf.Cos(angle) * transform.localScale.x / 2, Mathf.Sin(angle) * transform.localScale.x / 2) + direction / 2;
-                Vector3 radiusStart = Vector3.zero;
-
-                Vector3 finalPos = planetPos + radiusStart;
 
                 // Tell the ship if it is an enemy ship or allied One
                 GameObject spaceshipPrefab;
@@ -78,7 +69,9 @@ public class BattleManager : MonoBehaviour
 
                 // Instantiate
                 GameObject newShip = Instantiate(spaceshipPrefab, shipsContainer.transform);
-                newShip.transform.position = finalPos;
+
+                // Ship positioning
+                NewShipPositioning(planetAttacked, planetView, i, newShip);
 
                 // Send the ship the destination
                 newShip.GetComponent<Spaceship>().startingPlanet = planetView;
@@ -89,6 +82,20 @@ public class BattleManager : MonoBehaviour
 
         }
 
+    }
+
+    private static void NewShipPositioning(PlanetView planetAttacked, PlanetView planetView, int i, GameObject newShip)
+    {
+        // Start at the center of the planet
+        newShip.transform.position = planetView.transform.position;
+
+        // Face planet
+        newShip.transform.LookAt(planetAttacked.transform);
+        //Rotate initial ship pos according to number of ships
+        newShip.transform.Rotate(newShip.transform.forward, (360 / planetView.planetData.score) * i, Space.World);
+
+        // Move the positions out of the radius of the planet
+        newShip.transform.position += newShip.transform.up * planetView.planetData.planetRadius;
     }
 
     // Method used to inform the enemyAI of own planets after every change of owner

@@ -18,6 +18,10 @@ public class EnemyAIController : MonoBehaviour
     public bool battleStarted;
     public bool AIDecisionMakingRunning;
 
+    [Range(1, 2)]
+    public float playerPlanetDecisionWeight;
+    [Range(0.5f, 2)]
+    public float neutralPlanetDecisionWeight;
     void Start()
     {
 
@@ -91,8 +95,8 @@ public class EnemyAIController : MonoBehaviour
             {
                 Debug.Log(dest.name + source.name);
                 // If we pass the minimun requirements, send the order to attack
-                if ((source.planetData.score > dest.planetData.score * 1.75f && dest.planetData.playerControlled) ||
-                    (source.planetData.score > dest.planetData.score * 1.15f && !dest.planetData.playerControlled))
+                if ((source.planetData.score > dest.planetData.score * playerPlanetDecisionWeight && dest.planetData.playerControlled) ||
+                    (source.planetData.score > dest.planetData.score * neutralPlanetDecisionWeight && !dest.planetData.playerControlled))
                 {
                     Debug.Log("ATTACK ORDER ENEMY AI");
 

@@ -8,6 +8,7 @@ public class PlanetData: MonoBehaviour
 
     public float score;
     public float growthRate;
+    public float planetRadius;
 
     public bool enemyControlled;
     public bool playerControlled;
