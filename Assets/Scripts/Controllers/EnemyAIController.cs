@@ -20,7 +20,7 @@ public class EnemyAIController : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -29,6 +29,7 @@ public class EnemyAIController : MonoBehaviour
         if (battleStarted)
         {
             battleStarted = false;
+            AIDecisionMakingRunning = true;
 
             UpdatePlanetsList();
 
@@ -44,7 +45,7 @@ public class EnemyAIController : MonoBehaviour
             float sourceScore = 0;
 
             // Find my strongest planet
-            foreach(PlanetView planetView in enemyPlanets)
+            foreach (PlanetView planetView in enemyPlanets)
             {
                 // Get the score of the planet relative to the current power and the growth rate 
                 //
@@ -52,7 +53,7 @@ public class EnemyAIController : MonoBehaviour
                 // -------   =   --------------
                 // x + 1/Gr      1 + 1/(Gr * x)
                 //
-                float score = 1 / (1 + ( 1 / planetView.planetData.growthRate * planetView.planetData.score));
+                float score = 1 / (1 + (1 / planetView.planetData.growthRate * planetView.planetData.score));
 
                 // if this new planet is better, chose it
                 if (score > sourceScore && planetView.planetData.score > 8)
@@ -86,12 +87,12 @@ public class EnemyAIController : MonoBehaviour
             // Finally take the decision to attack
 
             // null check
-            if  (dest != null && source != null)
+            if (dest != null && source != null)
             {
                 Debug.Log(dest.name + source.name);
                 // If we pass the minimun requirements, send the order to attack
                 if ((source.planetData.score > dest.planetData.score * 1.75f && dest.planetData.playerControlled) ||
-                    (source.planetData.score > dest.planetData.score * 1.15f && dest.planetData.playerControlled))
+                    (source.planetData.score > dest.planetData.score * 1.15f && !dest.planetData.playerControlled))
                 {
                     Debug.Log("ATTACK ORDER ENEMY AI");
 
@@ -121,7 +122,7 @@ public class EnemyAIController : MonoBehaviour
             {
                 enemyPlanets.Add(planetView);
             }
-            
+
             // neutral and friendly ones
             if (!planetView.planetData.enemyControlled && !nonEnemyPlanets.Contains(planetView))
             {
@@ -130,21 +131,15 @@ public class EnemyAIController : MonoBehaviour
         }
 
         // Remove all planets that are not from  the enemy on the list of planets
-        foreach (PlanetView planetView in enemyPlanets)
+        for (int i = enemyPlanets.Count - 1; i >= 0; i--)
         {
-            if (!planetView.planetData.enemyControlled)
-            {
-                enemyPlanets.Remove(planetView);
-            }
+            if (!enemyPlanets[i].planetData.enemyControlled) enemyPlanets.RemoveAt(i);
         }
 
         // Remove all planets that are not from  the non enemy on the list of planets
-        foreach (PlanetView planetView in nonEnemyPlanets)
+        for (int i = nonEnemyPlanets.Count - 1; i >= 0; i--)
         {
-            if (planetView.planetData.enemyControlled)
-            {
-                nonEnemyPlanets.Remove(planetView);
-            }
+            if (nonEnemyPlanets[i].planetData.enemyControlled) nonEnemyPlanets.RemoveAt(i);
         }
     }
 }

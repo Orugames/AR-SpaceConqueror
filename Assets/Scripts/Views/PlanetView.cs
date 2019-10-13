@@ -93,6 +93,9 @@ public class PlanetView : MonoBehaviour
             if (planetData.score <= 0)
             {
                 SwitchOwnerOfPlanet(spaceshipColliding);
+
+                // Inform battle manager of new owner of planet
+                BattleManager.instance.UpdateAIPlanets();
             }
         }
     }

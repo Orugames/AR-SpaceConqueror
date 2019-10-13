@@ -12,6 +12,8 @@ public class BattleManager : MonoBehaviour
 
     public static BattleManager instance = null;
 
+    public EnemyAIController enemyAIController = null;
+
     public GameObject shipsContainer;
 
     public GameObject playerSpaceshipPrefab;
@@ -87,5 +89,11 @@ public class BattleManager : MonoBehaviour
 
         }
 
+    }
+
+    // Method used to inform the enemyAI of own planets after every change of owner
+    public void UpdateAIPlanets()
+    {
+        enemyAIController.UpdatePlanetsList();
     }
 }

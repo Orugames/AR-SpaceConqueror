@@ -14,11 +14,15 @@ public class ARFoundationController : MonoBehaviour
 
     public GameObject gameCenter;
 
+
     //public GameObject hologramMessageGO;
     //public Text hologramMessageText;
     
     //Initial animation to help players put the center on the table
     public GameObject UIAnimationPlacement;
+
+    public EnemyAIController enemyAI;
+
 
     //ARFoundation elements
     ARPlaneManager m_PlaneManager;
@@ -138,6 +142,10 @@ public class ARFoundationController : MonoBehaviour
                 }
                 planeManager.enabled = false;
                 UIAnimationPlacement.SetActive(false);
+
+                // Inform enemy AI to run
+                enemyAI.battleStarted = true;
+
                 this.enabled = false;
 
 
