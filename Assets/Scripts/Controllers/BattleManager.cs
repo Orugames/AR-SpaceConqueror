@@ -73,9 +73,14 @@ public class BattleManager : MonoBehaviour
                 // Ship positioning
                 NewShipPositioning(planetAttacked, planetView, i, newShip);
 
+                Vector3 p0 = newShip.transform.position;
+                Vector3 p1 = newShip.transform.position + newShip.transform.forward * 0.075f - newShip.transform.up * 0.2f;
+                Vector3 p2 = planetAttacked.transform.position;
+
+                Vector3[] path = { p0, p1, p2 };
                 // Send the ship the destination
                 newShip.GetComponent<Spaceship>().startingPlanet = planetView;
-                newShip.GetComponent<Spaceship>().MoveToPlanet(planetAttacked);
+                newShip.GetComponent<Spaceship>().MoveToPlanet(planetAttacked,path);
 
             }
 
@@ -84,8 +89,9 @@ public class BattleManager : MonoBehaviour
 
     }
 
-    private static void NewShipPositioning(PlanetView planetAttacked, PlanetView planetView, int i, GameObject newShip)
+    private void NewShipPositioning(PlanetView planetAttacked, PlanetView planetView, int i, GameObject newShip)
     {
+
         // Start at the center of the planet
         newShip.transform.position = planetView.transform.position;
 
@@ -96,6 +102,15 @@ public class BattleManager : MonoBehaviour
 
         // Move the positions out of the radius of the planet
         newShip.transform.position += newShip.transform.up * planetView.planetData.planetRadius;
+
+
+        //Point it outwards
+        newShip.transform.Rotate(newShip.transform.right, -90, Space.World);
+
+        
+
+
+
     }
 
     // Method used to inform the enemyAI of own planets after every change of owner

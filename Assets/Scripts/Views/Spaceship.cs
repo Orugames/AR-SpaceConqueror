@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Spaceship : MonoBehaviour
 {
     public SpaceshipData spaceshipData;
+
+    public TrailRenderer trail;
 
     public PlanetView startingPlanet;
 
@@ -20,15 +23,24 @@ public class Spaceship : MonoBehaviour
     {
         if (moveOrder)
         {
-            transform.Translate(transform.forward * spaceshipData.speed * Time.deltaTime, Space.World);
+            //transform.Translate(transform.forward * spaceshipData.speed * Time.deltaTime, Space.World);
         }
     }
 
-    public void MoveToPlanet(PlanetView planetView)
+    public void MoveToPlanet(PlanetView planetView, Vector3[] path)
     {
         // Bezier movement towards planet
 
         transform.LookAt(planetView.transform.position);
         moveOrder = true;
+
+        // To move at the same  speed regarding different distances, is just time = distance / speed
+        transform.DOPath(path, Vector3.Distance(path[2],path[0])/spaceshipData.speed,PathType.CatmullRom,PathMode.Full3D,25).SetEase(Ease.Linear);
+    }
+    private void OnDestroy()
+    {
+        trail.transform.parent = null;
+        trail.autodestruct = true;
+        trail = null;
     }
 }
