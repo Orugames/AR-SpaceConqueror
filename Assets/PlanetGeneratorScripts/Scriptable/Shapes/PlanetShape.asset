@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetRadius: 1
   noiseLayers:
-  - enabled: 0
+  - enabled: 1
     useFirstLayerAsMask: 0
     noiseSettings:
       filterType: 0
       simpleNoiseSettings:
-        strength: 0
-        numLayers: 0
+        strength: 0.34
+        numLayers: 2
         baseRoughness: 0
         roughness: 0
         persistence: 0

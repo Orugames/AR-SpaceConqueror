@@ -141,7 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spaceshipType: normal
   value: 1
-  speed: 0.15
+  speed: 0.1
   enemyControlled: 1
   playerControlled: 0
 --- !u!1 &735219675223248340

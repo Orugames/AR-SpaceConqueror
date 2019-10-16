@@ -21,6 +21,12 @@ public class BattleManager : MonoBehaviour
     public GameObject enemySpaceshipPrefab;
 
 
+    // TEST
+    public Planet planet1;
+    public Planet planet2;
+    public Planet planet3;
+    public Planet planet4;
+
 
     void Awake()
     {
@@ -36,6 +42,10 @@ public class BattleManager : MonoBehaviour
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
             Destroy(gameObject);
 
+        planet1.GeneratePlanet();
+        planet2.GeneratePlanet();
+        planet3.GeneratePlanet();
+        planet4.GeneratePlanet();
     }
 
 

@@ -10,7 +10,7 @@
 	}
 		SubShader
 		{
-			Tags {"RenderType" = "Opaque" "IgnoreProjector" = "True" "Queue" = "Geometry - 1" "RenderPipeline" = "LightweightPipeline"}
+			Tags {"RenderType" = "Opaque" "IgnoreProjector" = "True" "Queue" = "Geometry" "RenderPipeline" = "LightweightPipeline"}
 			//stencil operation
 		Stencil{
 			Ref[_StencilRef]
@@ -36,8 +36,8 @@
 			#pragma vertex DepthOnlyVertex
 			#pragma fragment DepthOnlyFragment
 
-			#include "LWRP/ShaderLibrary/InputSurfaceUnlit.hlsl"
-			#include "LWRP/ShaderLibrary/LightweightPassDepthOnly.hlsl"
+			//#include "LWRP/ShaderLibrary/InputSurfaceUnlit.hlsl"
+			//#include "LWRP/ShaderLibrary/LightweightPassDepthOnly.hlsl"
 
 			ENDHLSL
 		}

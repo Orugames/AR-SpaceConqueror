@@ -24,7 +24,7 @@ public class PlanetView : MonoBehaviour
 
     private void UpdatePlanetMaterial()
     {
-        if (planetData.enemyControlled)
+        /*if (planetData.enemyControlled)
         {
             GetComponent<Renderer>().material = MaterialsContainer.instance.enemyMat;
         }
@@ -37,7 +37,7 @@ public class PlanetView : MonoBehaviour
         {
             GetComponent<Renderer>().material = MaterialsContainer.instance.neutralMat;
 
-        }
+        }*/
     }
 
     // Update is called once per frame
