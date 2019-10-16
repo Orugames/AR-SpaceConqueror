@@ -70,11 +70,11 @@ public class BattleManager : MonoBehaviour
                 // Instantiate
                 GameObject newShip = Instantiate(spaceshipPrefab, shipsContainer.transform);
 
-                // Ship positioning
+                // Ship starting position
                 NewShipPositioning(planetAttacked, planetView, i, newShip);
 
                 Vector3 p0 = newShip.transform.position;
-                Vector3 p1 = newShip.transform.position + newShip.transform.forward * 0.075f - newShip.transform.up * 0.2f;
+                Vector3 p1 = newShip.transform.position + newShip.transform.forward * 0.05f - newShip.transform.up * 0.2f;
                 Vector3 p2 = planetAttacked.transform.position;
 
                 Vector3[] path = { p0, p1, p2 };
@@ -106,11 +106,6 @@ public class BattleManager : MonoBehaviour
 
         //Point it outwards
         newShip.transform.Rotate(newShip.transform.right, -90, Space.World);
-
-        
-
-
-
     }
 
     // Method used to inform the enemyAI of own planets after every change of owner

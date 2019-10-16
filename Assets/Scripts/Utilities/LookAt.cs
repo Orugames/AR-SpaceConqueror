@@ -8,6 +8,8 @@ public class LookAt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(this.transform.position - Camera.main.transform.position);
+        //transform.LookAt(this.transform.position - Camera.main.transform.position);
+        transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+
     }
 }

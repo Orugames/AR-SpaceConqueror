@@ -158,7 +158,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 1}
-  m_SizeDelta: {x: 1.9834, y: 1}
+  m_SizeDelta: {x: 2.016, y: 1.025}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &34251269
 MonoBehaviour:
@@ -1694,11 +1694,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1274637456}
-  - component: {fileID: 1274637459}
-  - component: {fileID: 1274637458}
   - component: {fileID: 1274637457}
   - component: {fileID: 1274637460}
   - component: {fileID: 1274637461}
+  - component: {fileID: 1274637458}
   m_Layer: 0
   m_Name: Sphere (1)
   m_TagString: Planet
@@ -1734,51 +1733,26 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1274637458
-MeshRenderer:
+--- !u!114 &1274637458
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1274637455}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1274637459
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274637455}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbc03bd88e0fa30428fab53d8f24e4c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resolution: 10
+  autoUpdate: 1
+  faceRenderMask: 0
+  shapeSettings: {fileID: 11400000, guid: a2c48ad4ce2a3ce4889d0013876fc5bf, type: 2}
+  colourSettings: {fileID: 11400000, guid: 3c15c99187324464ab3c50ae68355ee4, type: 2}
+  shapeSettingsFoldout: 1
+  colourSettingsFoldout: 1
+  meshFilters: []
 --- !u!114 &1274637460
 MonoBehaviour:
   m_ObjectHideFlags: 0

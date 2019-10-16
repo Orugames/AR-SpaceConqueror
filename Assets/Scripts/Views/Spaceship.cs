@@ -29,13 +29,15 @@ public class Spaceship : MonoBehaviour
 
     public void MoveToPlanet(PlanetView planetView, Vector3[] path)
     {
-        // Bezier movement towards planet
+        // Get the time to get to last position, time = distance / speed
+        float timeToGoTowardsPlanet = Vector3.Distance(path[2], path[0])/spaceshipData.speed;
 
-        transform.LookAt(planetView.transform.position);
+        // Bezier movement towards planet
+        //transform.LookAt(planetView.transform.position);
         moveOrder = true;
 
         // To move at the same  speed regarding different distances, is just time = distance / speed
-        transform.DOPath(path, Vector3.Distance(path[2],path[0])/spaceshipData.speed,PathType.CatmullRom,PathMode.Full3D,25).SetEase(Ease.Linear);
+        transform.DOPath(path, timeToGoTowardsPlanet, PathType.CatmullRom,PathMode.Full3D,25).SetEase(Ease.Linear).SetLookAt(0);
     }
     private void OnDestroy()
     {
