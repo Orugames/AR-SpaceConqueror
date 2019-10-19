@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System;
 
@@ -10,7 +11,12 @@ public class PlanetView : MonoBehaviour
     // The scriptableObject in which we hold the data
     public PlanetData planetData;
 
-    public TextMeshPro scoreText;
+
+    // Planet UI
+    public TextMeshProUGUI planetScoreText;
+    public TextMeshProUGUI planetNameText;
+    public TextMeshProUGUI planetOwnerText;
+    public Image UiImage;
 
     public bool planetSelectedByPlayer;
 
@@ -18,26 +24,40 @@ public class PlanetView : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreText.text = ((int)planetData.score).ToString();
-        UpdatePlanetMaterial();
+        InitUiElements();
     }
 
-    private void UpdatePlanetMaterial()
-    {
-        /*if (planetData.enemyControlled)
+    private void InitUiElements()
+    {        
+        planetScoreText.text = ((int)planetData.score).ToString();
+
+        planetNameText.text = planetData.planetName;
+
+        
+
+        if (planetData.enemyControlled)
         {
-            GetComponent<Renderer>().material = MaterialsContainer.instance.enemyMat;
+            UiImage.color = MaterialsContainer.instance.enemyImageColor;
+            planetOwnerText.color = MaterialsContainer.instance.enemyColor;
+
+            planetOwnerText.text = "ENEMY";
         }
         else if (planetData.playerControlled)
         {
-            GetComponent<Renderer>().material = MaterialsContainer.instance.friendlyMat;
+            UiImage.color = MaterialsContainer.instance.playerImageColor;
+            planetOwnerText.color = MaterialsContainer.instance.playerColor;
+
+            planetOwnerText.text = "PLAYER";
 
         }
         else
         {
-            GetComponent<Renderer>().material = MaterialsContainer.instance.neutralMat;
+            UiImage.color = MaterialsContainer.instance.neutralImageColor;
+            planetOwnerText.color = MaterialsContainer.instance.neutralColor;
 
-        }*/
+            planetOwnerText.text = "NEUTRAL";
+
+        }
     }
 
     // Update is called once per frame
@@ -50,7 +70,7 @@ public class PlanetView : MonoBehaviour
             planetData.score += Time.deltaTime / 2;
         }
         // Update view with updated info
-        scoreText.text = ((int)planetData.score).ToString();
+        planetScoreText.text = ((int)planetData.score).ToString();
 
     }
 
@@ -156,7 +176,7 @@ public class PlanetView : MonoBehaviour
         }
 
         // Change  material
-        UpdatePlanetMaterial();
+        InitUiElements();
 
         // Reset value of planet to 1
         planetData.score = 1;

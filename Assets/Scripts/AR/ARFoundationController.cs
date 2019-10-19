@@ -127,8 +127,8 @@ public class ARFoundationController : MonoBehaviour
                 gameCenter.transform.parent = referencePoint.transform;
 
                 //tween animation to scale the object
-                gameCenter.transform.localScale = Vector3.zero;
-                gameCenter.transform.DOScale(Vector3.one, 1).From(0);
+                //gameCenter.transform.localScale = Vector3.zero;
+                //gameCenter.transform.DOScale(Vector3.one, 1).From(0);
 
 
                 //Disable this script so it won't be triggered again
@@ -145,6 +145,9 @@ public class ARFoundationController : MonoBehaviour
 
                 // Inform enemy AI to run
                 enemyAI.battleStarted = true;
+
+                // Stars necessary tweens
+                //TweensManager.instance.StartGameTween();
 
                 this.enabled = false;
 

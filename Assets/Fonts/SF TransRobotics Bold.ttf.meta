@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 7db8fc38d39911b4db370185783ea9b2
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: SF TransRobotics
+  fontNames:
+  - SF TransRobotics
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 23854d3a0afaed041ba1e3631634a888, type: 3}
+  - {fileID: 12800000, guid: 32e5177bbf3760e4694817d5d95963de, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

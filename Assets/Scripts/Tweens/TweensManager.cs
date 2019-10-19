@@ -2,22 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaterialsContainer : MonoBehaviour
+public class TweensManager : MonoBehaviour
 {
-    public Material friendlyMat;
-    public Material neutralMat;
-    public Material enemyMat;
+    public static TweensManager instance = null;
 
-    public Color playerColor;
-    public Color neutralColor;
-    public Color enemyColor;
-
-    public Color playerImageColor;
-    public Color neutralImageColor;
-    public Color enemyImageColor;
-
-
-    public static MaterialsContainer instance = null;
+    public DoorsOpeningTween doorsOpeningTween;
+    public PlanetsTween planetsTween;
 
     void Awake()
     {
@@ -33,5 +23,19 @@ public class MaterialsContainer : MonoBehaviour
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
             Destroy(gameObject);
 
-}
+        //Sets this to not be destroyed when reloading scene
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void StartGameTween()
+    {
+        doorsOpeningTween.OpenDoorsTween();
+
+    }
+
+    public void ExpandPlanetsTween()
+    {
+        planetsTween.ExpandInitialPlanetsTween();
+    }
+
 }
