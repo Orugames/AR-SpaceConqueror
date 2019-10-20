@@ -22,9 +22,8 @@ public class Planet : MonoBehaviour
     ShapeGenerator shapeGenerator = new ShapeGenerator();
     ColourGenerator colourGenerator = new ColourGenerator();
 
-    public MeshFilter[] meshFilters;
-
     [SerializeField, HideInInspector]
+    MeshFilter[] meshFilters;
     TerrainFace[] terrainFaces;
 
 
@@ -48,7 +47,7 @@ public class Planet : MonoBehaviour
                 GameObject meshObj = new GameObject("mesh");
                 meshObj.transform.parent = transform;
 
-                // Put it at 0,0,0 for the rotation and display
+                // Set the local position always to 0
                 meshObj.transform.localPosition = Vector3.zero;
 
                 meshObj.AddComponent<MeshRenderer>();

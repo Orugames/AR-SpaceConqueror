@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class MaterialsContainer : MonoBehaviour
 {
-    public Material friendlyMat;
+    public Material playerMat;
     public Material neutralMat;
     public Material enemyMat;
+
+    public Material lineRendererMat;
 
     public Color playerColor;
     public Color neutralColor;

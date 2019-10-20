@@ -17,6 +17,7 @@ public class PlanetView : MonoBehaviour
     public TextMeshProUGUI planetNameText;
     public TextMeshProUGUI planetOwnerText;
     public Image UiImage;
+    public GameObject triangleIndicator;
 
     public bool planetSelectedByPlayer;
 
@@ -40,12 +41,18 @@ public class PlanetView : MonoBehaviour
             UiImage.color = MaterialsContainer.instance.enemyImageColor;
             planetOwnerText.color = MaterialsContainer.instance.enemyColor;
 
+            // Color the triangle indicator
+            triangleIndicator.GetComponent<Renderer>().material = MaterialsContainer.instance.enemyMat;
+
             planetOwnerText.text = "ENEMY";
         }
         else if (planetData.playerControlled)
         {
             UiImage.color = MaterialsContainer.instance.playerImageColor;
             planetOwnerText.color = MaterialsContainer.instance.playerColor;
+
+            // Color the triangle indicator
+            triangleIndicator.GetComponent<Renderer>().material = MaterialsContainer.instance.playerMat;
 
             planetOwnerText.text = "PLAYER";
 
@@ -54,6 +61,9 @@ public class PlanetView : MonoBehaviour
         {
             UiImage.color = MaterialsContainer.instance.neutralImageColor;
             planetOwnerText.color = MaterialsContainer.instance.neutralColor;
+
+            // Color the triangle indicator
+            triangleIndicator.GetComponent<Renderer>().material = MaterialsContainer.instance.neutralMat;
 
             planetOwnerText.text = "NEUTRAL";
 
@@ -84,6 +94,8 @@ public class PlanetView : MonoBehaviour
         lineRenderer.SetPositions(new Vector3[] { transform.position, transform.position });
         lineRenderer.startWidth = lineWidth;
         lineRenderer.endWidth = lineWidth;
+
+        lineRenderer.material = MaterialsContainer.instance.lineRendererMat;
 
         planetSelectedByPlayer = true;
     }
