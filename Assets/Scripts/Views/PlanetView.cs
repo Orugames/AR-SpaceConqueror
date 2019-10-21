@@ -112,6 +112,7 @@ public class PlanetView : MonoBehaviour
 
 
         newSpaceship.GetComponent<Spaceship>().SetShipToRotate(this);
+        newSpaceship.GetComponent<Spaceship>().spaceshipData.value = 1;
 
         spaceshipsOwnedByPlanet.Add(newSpaceship);
     }
@@ -197,20 +198,37 @@ public class PlanetView : MonoBehaviour
             // Add score depending on the value
             planetData.score += spaceshipColliding.spaceshipData.value;
 
+            //Create a new spaceship
+            CreateNewSpaceship();
+
             // Destroy the ship
             Destroy(spaceshipColliding.gameObject);
         }
-        // Different alliance spaceship colliding OR neutral planet
+        // Different alliance spaceship colliding
         else if ((spaceshipColliding.spaceshipData.playerControlled && planetData.enemyControlled) ||
-                (spaceshipColliding.spaceshipData.enemyControlled && planetData.playerControlled) ||
-                (!planetData.enemyControlled && !planetData.playerControlled))
+                (spaceshipColliding.spaceshipData.enemyControlled && planetData.playerControlled))
         {
             // deduce score depending on the value
             planetData.score -= spaceshipColliding.spaceshipData.value;
 
+            // Remove ship on planet
+            Destroy(spaceshipsOwnedByPlanet[0]);
+            spaceshipsOwnedByPlanet.Remove(spaceshipsOwnedByPlanet[0]);
+
             // Destroy the ship
             Destroy(spaceshipColliding.gameObject);
 
+        }
+        // Neutral planet
+        else if (!planetData.enemyControlled && !planetData.playerControlled)
+        {
+            // deduce score depending on the value
+            planetData.score -= spaceshipColliding.spaceshipData.value;
+
+
+
+            // Destroy the ship
+            Destroy(spaceshipColliding.gameObject);
         }
     }
     private void SwitchOwnerOfPlanet(Spaceship spaceshipColliding)

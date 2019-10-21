@@ -71,53 +71,27 @@ public class BattleManager : MonoBehaviour
             // Send the number according to the half of the score of the planet
             for (int i = 0; i < planetView.planetData.score; i++)
             {
+                GameObject newShip = planetView.spaceshipsOwnedByPlanet[i];
 
-                // Tell the ship if it is an enemy ship or allied One
-                GameObject spaceshipPrefab;
-                if (orderGivenByPlayer) spaceshipPrefab = playerSpaceshipPrefab;
-                else spaceshipPrefab = enemySpaceshipPrefab;
-
-                // Instantiate
-                GameObject newShip = Instantiate(spaceshipPrefab, shipsContainer.transform);
-
-                // Ship starting position
-                NewShipPositioning(planetAttacked, planetView, i, newShip);
+                // Clean each list after the order
+                planetView.spaceshipsOwnedByPlanet.Remove(newShip);
 
                 Vector3 p0 = newShip.transform.position;
-                Vector3 p1 = newShip.transform.position + newShip.transform.forward * 0.05f - newShip.transform.up * 0.2f;
-                Vector3 p2 = planetAttacked.transform.position;
+                Vector3 p1 = planetAttacked.transform.position;
 
-                Vector3[] path = { p0, p1, p2 };
-                // Send the ship the destination
-                newShip.GetComponent<Spaceship>().startingPlanet = planetView;
+                Vector3[] path = { p0, p1};
+
                 newShip.GetComponent<Spaceship>().MoveToPlanet(planetAttacked,path);
 
             }
 
 
+
+
         }
 
     }
-
-    private void NewShipPositioning(PlanetView planetAttacked, PlanetView planetView, int i, GameObject newShip)
-    {
-
-        // Start at the center of the planet
-        newShip.transform.position = planetView.transform.position;
-
-        // Face planet
-        newShip.transform.LookAt(planetAttacked.transform);
-        //Rotate initial ship pos according to number of ships
-        newShip.transform.Rotate(newShip.transform.forward, (360 / planetView.planetData.score) * i, Space.World);
-
-        // Move the positions out of the radius of the planet
-        newShip.transform.position += newShip.transform.up * planetView.planetData.planetRadius;
-
-
-        //Point it outwards
-        newShip.transform.Rotate(newShip.transform.right, -90, Space.World);
-    }
-
+    
     // Method used to inform the enemyAI of own planets after every change of owner
     public void UpdateAIPlanets()
     {

@@ -6,7 +6,7 @@ public class PlanetData: MonoBehaviour
 {
     public string planetName;
 
-    public float score;
+    public int score;
     public float growthRate;
     public float planetRadius;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpaceshipData : MonoBehaviour
 {
     public string spaceshipType;
-    public float value;
+    public int value;
     public float speed;
 
     public bool enemyControlled;

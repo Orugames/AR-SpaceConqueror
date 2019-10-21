@@ -720,6 +720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetData: {fileID: 3996387967615809062}
+  spaceshipsOwnedByPlanet: []
   planetScoreText: {fileID: 2788908667593840104}
   planetNameText: {fileID: 3663501557057758645}
   planetOwnerText: {fileID: 6007033653684264054}
@@ -739,10 +740,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fede865a0ade046bd4de2d8ef7266a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetName: a
+  planetName: Askonia
   score: 15
   growthRate: 1
-  planetRadius: 0.06
+  planetRadius: 0.075
   enemyControlled: 0
   playerControlled: 0
 --- !u!1 &3996387967769736171

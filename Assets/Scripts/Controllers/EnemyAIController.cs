@@ -57,7 +57,7 @@ public class EnemyAIController : MonoBehaviour
                 // -------   =   --------------
                 // x + 1/Gr      1 + 1/(Gr * x)
                 //
-                float score = 1 / (1 + (1 / planetView.planetData.growthRate * planetView.planetData.score));
+                float score = 1 / (1 + (1 / (planetView.planetData.growthRate * planetView.planetData.score)));
 
                 // if this new planet is better, chose it
                 if (score > sourceScore && planetView.planetData.score > 8)
