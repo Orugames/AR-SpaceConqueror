@@ -12,6 +12,7 @@ public class Spaceship : MonoBehaviour
     public PlanetView startingPlanet;
 
     bool moveOrder;
+    public bool rotateOrder;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,16 +22,22 @@ public class Spaceship : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (moveOrder)
+        if (rotateOrder)
         {
+            transform.RotateAround(startingPlanet.transform.position, transform.right, 40 * Time.deltaTime);
+
             //transform.Translate(transform.forward * spaceshipData.speed * Time.deltaTime, Space.World);
+        } else if (moveOrder)
+        {
+
         }
     }
 
     public void MoveToPlanet(PlanetView planetView, Vector3[] path)
     {
+        rotateOrder = false;
         // Get the time to get to last position, time = distance / speed
-        float timeToGoTowardsPlanet = Vector3.Distance(path[2], path[0])/spaceshipData.speed;
+        float timeToGoTowardsPlanet = Vector3.Distance(path[1], path[0])/spaceshipData.speed;
 
         // Bezier movement towards planet
         //transform.LookAt(planetView.transform.position);
@@ -44,5 +51,10 @@ public class Spaceship : MonoBehaviour
         trail.transform.parent = null;
         trail.autodestruct = true;
         trail = null;
+    }
+    public void SetShipToRotate(PlanetView startingPlanet)
+    {
+        this.startingPlanet = startingPlanet;
+        rotateOrder = true;
     }
 }

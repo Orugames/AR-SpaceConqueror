@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using DG.Tweening;
 
 public class PlanetView : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PlanetView : MonoBehaviour
     // The scriptableObject in which we hold the data
     public PlanetData planetData;
 
+    // The list of each Spaceship we hold in this planet
+    public List<GameObject> spaceshipsOwnedByPlanet = new List<GameObject>();
 
     // Planet UI
     public TextMeshProUGUI planetScoreText;
@@ -21,11 +24,20 @@ public class PlanetView : MonoBehaviour
 
     public bool planetSelectedByPlayer;
 
+    bool shipBuilding;
+
     public float lineWidth = 0.01f;
     // Start is called before the first frame update
     void Start()
     {
+        // Init the necessary UI elements of the planet
         InitUiElements();
+
+        // Init the spaceships if the planet is not neutral
+        if (planetData.enemyControlled || planetData.playerControlled)
+        {
+            CreateInitialSpaceships();
+        }
     }
 
     private void InitUiElements()
@@ -70,21 +82,64 @@ public class PlanetView : MonoBehaviour
         }
     }
 
+    private void CreateInitialSpaceships()
+    {
+        for (int i = 0; i < planetData.score; i++)
+        {
+            CreateNewSpaceship();
+
+        }
+
+        StartCoroutine(UpdateScoreAndCreateShip());
+
+    }
+
+    private void CreateNewSpaceship()
+    {
+        GameObject newSpaceship = SpaceshipFactory.instance.CreateSpaceship(this);
+
+        // Rotate a random vector to move the ship, depending on the planet radius
+        Vector3 randomRotation = new Vector3(UnityEngine.Random.Range(0, 360f),
+                                  UnityEngine.Random.Range(0, 360f),
+                                  UnityEngine.Random.Range(0, 360f));
+
+        newSpaceship.transform.position = transform.position;
+
+        newSpaceship.transform.localEulerAngles = randomRotation;
+
+        // Now add the radius depending on the y vector of the ship relative to the radius
+        newSpaceship.transform.Translate(newSpaceship.transform.up * (planetData.planetRadius * 1.5f), Space.World);
+
+
+        newSpaceship.GetComponent<Spaceship>().SetShipToRotate(this);
+
+        spaceshipsOwnedByPlanet.Add(newSpaceship);
+    }
+
+
     // Update is called once per frame
     void Update()
     {
-      
-        // Update planet score if controlled     
-        if (planetData.enemyControlled  || planetData.playerControlled)
+        if (planetData.enemyControlled || planetData.playerControlled)
         {
-            planetData.score += Time.deltaTime / 2;
+            if (!shipBuilding) StartCoroutine(UpdateScoreAndCreateShip());
         }
         // Update view with updated info
         planetScoreText.text = ((int)planetData.score).ToString();
 
     }
 
- 
+    private IEnumerator UpdateScoreAndCreateShip()
+    {
+        shipBuilding = true;
+        while (shipBuilding)
+        {
+            planetData.score += 1;         
+            CreateNewSpaceship();
+            
+            yield return new WaitForSeconds((1 / planetData.growthRate) * 2);
+        }
+    }
 
     public void CreateLine()
     {
