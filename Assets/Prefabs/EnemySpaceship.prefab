@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 529318430415315161}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
   - {fileID: 3731766004886584803}
   - {fileID: 4178871139730042723}
@@ -71,6 +71,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -127,6 +128,8 @@ MonoBehaviour:
   spaceshipData: {fileID: 6439161768498364445}
   trail: {fileID: 1129144089826767982}
   startingPlanet: {fileID: 0}
+  attackOrder: 0
+  rotateOrder: 0
 --- !u!114 &6439161768498364445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +235,7 @@ TrailRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -247,7 +251,7 @@ TrailRenderer:
   m_Time: 3
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.002
+    widthMultiplier: 0.001
     widthCurve:
       serializedVersion: 2
       m_Curve:

@@ -168,6 +168,15 @@ public class PlanetView : MonoBehaviour
         {
             Spaceship spaceshipColliding = other.GetComponent<Spaceship>();
 
+            //Check if score is less than 0 so it should change owner
+            if (planetData.score <= 0)
+            {
+                SwitchOwnerOfPlanet(spaceshipColliding);
+
+                // Inform battle manager of new owner of planet
+                BattleManager.instance.UpdateAIPlanets();
+            }
+
             // If the collision is based on the starting planet, do nothing
             if (spaceshipColliding.startingPlanet == this)
             {
@@ -177,20 +186,18 @@ public class PlanetView : MonoBehaviour
             // Change score depeding on ship colliding
             ManageShipCollision(spaceshipColliding);
 
-            //Check if score is less than 0 so it should change owner
-            if (planetData.score <= 0)
-            {
-                SwitchOwnerOfPlanet(spaceshipColliding);
-
-                // Inform battle manager of new owner of planet
-                BattleManager.instance.UpdateAIPlanets();
-            }
+          
         }
     }
    
 
     private void ManageShipCollision(Spaceship spaceshipColliding)
     {
+
+
+        //Keep the trail after collision
+        spaceshipColliding.trail.transform.parent = null;
+
         // If it is an allied spaceship
         if ((spaceshipColliding.spaceshipData.playerControlled && planetData.playerControlled) ||
                         (spaceshipColliding.spaceshipData.enemyControlled && planetData.enemyControlled))
@@ -201,7 +208,8 @@ public class PlanetView : MonoBehaviour
             //Create a new spaceship
             CreateNewSpaceship();
 
-            // Destroy the ship
+            // Destroy the ship and all childrens
+ 
             Destroy(spaceshipColliding.gameObject);
         }
         // Different alliance spaceship colliding
@@ -216,8 +224,8 @@ public class PlanetView : MonoBehaviour
             spaceshipsOwnedByPlanet.Remove(spaceshipsOwnedByPlanet[0]);
 
             // Destroy the ship
+         
             Destroy(spaceshipColliding.gameObject);
-
         }
         // Neutral planet
         else if (!planetData.enemyControlled && !planetData.playerControlled)
@@ -228,8 +236,10 @@ public class PlanetView : MonoBehaviour
 
 
             // Destroy the ship
+   
             Destroy(spaceshipColliding.gameObject);
         }
+
     }
     private void SwitchOwnerOfPlanet(Spaceship spaceshipColliding)
     {

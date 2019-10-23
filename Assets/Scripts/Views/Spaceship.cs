@@ -11,7 +11,7 @@ public class Spaceship : MonoBehaviour
 
     public PlanetView startingPlanet;
 
-    bool moveOrder;
+    public bool attackOrder;
     public bool rotateOrder;
     // Start is called before the first frame update
     void Start()
@@ -27,13 +27,13 @@ public class Spaceship : MonoBehaviour
             transform.RotateAround(startingPlanet.transform.position, transform.right, 40 * Time.deltaTime);
 
             //transform.Translate(transform.forward * spaceshipData.speed * Time.deltaTime, Space.World);
-        } else if (moveOrder)
+        } else if (attackOrder)
         {
 
         }
     }
 
-    public void MoveToPlanet(PlanetView planetView, Vector3[] path)
+    public void MoveToPlanet(PlanetView planetAttacked, Vector3[] path)
     {
         rotateOrder = false;
         // Get the time to get to last position, time = distance / speed
@@ -41,14 +41,13 @@ public class Spaceship : MonoBehaviour
 
         // Bezier movement towards planet
         //transform.LookAt(planetView.transform.position);
-        moveOrder = true;
-
+        attackOrder = true;
+        GetComponent<Avoidance>().target = planetAttacked.gameObject;
         // To move at the same  speed regarding different distances, is just time = distance / speed
-        transform.DOPath(path, timeToGoTowardsPlanet, PathType.CatmullRom,PathMode.Full3D,25).SetEase(Ease.Linear).SetLookAt(0);
+        //transform.DOPath(path, timeToGoTowardsPlanet, PathType.CatmullRom,PathMode.Full3D,25).SetEase(Ease.Linear).SetLookAt(0);
     }
     private void OnDestroy()
     {
-        trail.transform.parent = null;
         trail.autodestruct = true;
         trail = null;
     }
