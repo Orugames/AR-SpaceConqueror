@@ -6,6 +6,7 @@ using DG.Tweening;
 public class Spaceship : MonoBehaviour
 {
     public SpaceshipData spaceshipData;
+    ShipAvoidanceLogic shipAvoidanceLogic;
 
     public TrailRenderer trail;
 
@@ -16,7 +17,7 @@ public class Spaceship : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        shipAvoidanceLogic = GetComponent<ShipAvoidanceLogic>();
     }
 
     // Update is called once per frame
@@ -27,22 +28,23 @@ public class Spaceship : MonoBehaviour
             transform.RotateAround(startingPlanet.transform.position, transform.right, 40 * Time.deltaTime);
 
             //transform.Translate(transform.forward * spaceshipData.speed * Time.deltaTime, Space.World);
-        } else if (attackOrder)
-        {
-
         }
     }
 
     public void MoveToPlanet(PlanetView planetAttacked, Vector3[] path)
     {
-        rotateOrder = false;
         // Get the time to get to last position, time = distance / speed
         float timeToGoTowardsPlanet = Vector3.Distance(path[1], path[0])/spaceshipData.speed;
 
         // Bezier movement towards planet
         //transform.LookAt(planetView.transform.position);
-        attackOrder = true;
-        GetComponent<Avoidance>().target = planetAttacked.gameObject;
+        //attackOrder = true;
+        shipAvoidanceLogic.nativePlanet = startingPlanet.gameObject;
+        shipAvoidanceLogic.target = planetAttacked.gameObject;
+
+        // Start the coroutine to attack
+        StartCoroutine(shipAvoidanceLogic.CheckIfNotCollidingWithPlanet());
+
         // To move at the same  speed regarding different distances, is just time = distance / speed
         //transform.DOPath(path, timeToGoTowardsPlanet, PathType.CatmullRom,PathMode.Full3D,25).SetEase(Ease.Linear).SetLookAt(0);
     }
