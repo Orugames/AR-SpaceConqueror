@@ -163,7 +163,7 @@ MonoBehaviour:
   nativePlanet: {fileID: 0}
   target: {fileID: 0}
   speed: 0.1
-  rotationSpeed: 90
+  rotationSpeed: 200
   raycastRange: 1
   timeToRaycast: 0.1
   attackOrderGiven: 0

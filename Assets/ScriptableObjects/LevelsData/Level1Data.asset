@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e566e31ffd412164aae3430dd2037d56, type: 3}
+  m_Name: Level1Data
+  m_EditorClassIdentifier: 
+  numberOfPlanets: 4
+  planetsScore: 0f0000000f0000000f00000019000000
+  planetsPosition:
+  - {x: 0, y: 0.34, z: -0.371}
+  - {x: 0.06999969, y: 0.466, z: 0.292}
+  - {x: 0.466, y: 0.385, z: -0.12}
+  - {x: -0.467, y: 0.358, z: 0}
+  planetsName:
+  - Askonia
+  - Endiral
+  - Servia
+  - "Fas\xFCn"
+  planetsColourSettings:
+  - {fileID: 11400000, guid: 4d2914748ff1c4089acd77328cfcb02e, type: 2}
+  - {fileID: 11400000, guid: 59a6756e958824c428c2fac5758e02a9, type: 2}
+  - {fileID: 11400000, guid: f6250b35ff1c880419bdcc07d9e17abf, type: 2}
+  - {fileID: 11400000, guid: abec718a8946a114db2d8ccde040b90d, type: 2}
+  planetsShapeSettings:
+  - {fileID: 11400000, guid: bb563e90654574d4cb7d931456630f79, type: 2}
+  - {fileID: 11400000, guid: 2679e9e534f635248829889cb62dd427, type: 2}
+  - {fileID: 11400000, guid: 239342de95953804ca25353b6c02a2ec, type: 2}
+  - {fileID: 11400000, guid: a1b4eb0323894f243837616cf2e4b5bc, type: 2}
+  planetsAlliance: 02000000020000000000000001000000

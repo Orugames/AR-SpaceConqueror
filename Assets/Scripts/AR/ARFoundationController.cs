@@ -143,8 +143,8 @@ public class ARFoundationController : MonoBehaviour
                 planeManager.enabled = false;
                 UIAnimationPlacement.SetActive(false);
 
-                // Inform enemy AI to run
-                enemyAI.battleStarted = true;
+                // Inform enemy AI to run preBattle Mode
+                MainGameController.instance.currentGameState = GameStates.preBattle;
 
                 // Stars necessary tweens
                 //TweensManager.instance.StartGameTween();

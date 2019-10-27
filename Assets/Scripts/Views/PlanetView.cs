@@ -177,8 +177,8 @@ public class PlanetView : MonoBehaviour
                 BattleManager.instance.UpdateAIPlanets();
             }
 
-            // If the collision is based on the starting planet, do nothing
-            if (spaceshipColliding.startingPlanet == this)
+            // If the collision is based on the starting planet or not the planet target
+            if (spaceshipColliding.startingPlanet == this || spaceshipColliding.targetPlanet != this)
             {
                 return;
             }

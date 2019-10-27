@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 lastTouchPos = Vector3.zero;
 
     public bool planetTouched;
+    public bool battleStarted;
 
 
     // Start is called before the first frame update
@@ -36,8 +37,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Input Logic
-        UserInputLogic();
+        if (battleStarted)
+        {
+
+            // Input Logic
+            UserInputLogic();
+        }
     }
 
     void UserInputLogic()

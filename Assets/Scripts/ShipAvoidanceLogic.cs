@@ -96,7 +96,8 @@ public class ShipAvoidanceLogic : MonoBehaviour
             // If we detect an obstacle rotate a random direction until no detection
             if (Physics.Raycast(ray.position, transform.forward, out hit, raycastRange))
             {
-                if (hit.collider.gameObject != nativePlanet)
+                // If we detect something that is  not our target or native planet, is an obstacle
+                if (hit.collider.gameObject != nativePlanet && hit.collider.gameObject != target)
                 {
                     obstacleDetected = true;
 
@@ -105,9 +106,14 @@ public class ShipAvoidanceLogic : MonoBehaviour
                                                        Random.Range(0f, 1f),
                                                        Random.Range(0f, 1f));
 
-                    transform.Rotate(randomVector * Time.deltaTime * speed);
+                    transform.Rotate(randomVector * Time.deltaTime * rotationSpeed);
                 }
-          
+                else
+                {
+                    obstacleDetected = false;
+
+                }
+
             }
             else
             {
@@ -116,7 +122,7 @@ public class ShipAvoidanceLogic : MonoBehaviour
             }
 
             // Use to debug the Physics.RayCast.
-            Debug.DrawRay(ray.position, transform.forward * 20, Color.blue);
+            Debug.DrawRay(ray.position, transform.forward * 20, Color.blue, 2);
             //yield return new WaitForSeconds(timeToRaycast);
             yield return new WaitForEndOfFrame();
         }
@@ -135,7 +141,7 @@ public class ShipAvoidanceLogic : MonoBehaviour
         // If it collides with our planet it means we are still not able to travel to our target
         while (collidingWithNativePlanet)
         {
-            Debug.DrawRay(transform.position,target.transform.position - transform.position, Color.red,10);
+            Debug.DrawRay(transform.position,target.transform.position - transform.position, Color.red,2);
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position, target.transform.position - transform.position, out hit))

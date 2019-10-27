@@ -11,6 +11,7 @@ public class Spaceship : MonoBehaviour
     public TrailRenderer trail;
 
     public PlanetView startingPlanet;
+    public PlanetView targetPlanet;
 
     public bool attackOrder;
     public bool rotateOrder;
@@ -33,6 +34,8 @@ public class Spaceship : MonoBehaviour
 
     public void MoveToPlanet(PlanetView planetAttacked, Vector3[] path)
     {
+
+        targetPlanet = planetAttacked;
         // Get the time to get to last position, time = distance / speed
         float timeToGoTowardsPlanet = Vector3.Distance(path[1], path[0])/spaceshipData.speed;
 
