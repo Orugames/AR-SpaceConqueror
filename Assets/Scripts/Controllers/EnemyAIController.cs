@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,68 +45,79 @@ public class EnemyAIController : MonoBehaviour
     {
         while (AIDecisionMakingRunning || enemyPlanets.Count == 0)
         {
-            //Find my strongest Planet
-            PlanetView source = null;
-            float sourceScore = 0;
+            //Find my strongest & weakest Planet
+            PlanetView enemyWeakestPlanet = null;
+            PlanetView enemyStrongestPlanet = null;
 
-            // Find my strongest planet
-            foreach (PlanetView planetView in enemyPlanets)
+            GetStrongestAndWeakestPlanet(ref enemyWeakestPlanet, ref enemyStrongestPlanet, true);
+
+            //Then find the strongest & weakest friendly or neutral planet with best growth rate
+            PlanetView playerWeakestPlanet = null;
+            PlanetView playerStrongestPlanet = null;
+
+            GetStrongestAndWeakestPlanet(ref playerWeakestPlanet, ref playerStrongestPlanet, false);
+
+            Debug.Log(playerWeakestPlanet.name + playerStrongestPlanet.name + enemyWeakestPlanet.name + enemyStrongestPlanet.name);
+
+            // Check if any of the enemyAI planets should be defended
+            bool defendAIPlanet = CheckIfAIShouldDefendPlanet(enemyWeakestPlanet, enemyStrongestPlanet, playerStrongestPlanet);
+
+            // If defend order is given, iterate the next decision
+            if (defendAIPlanet)
             {
-                // Get the score of the planet relative to the current power and the growth rate 
-                //
-                //    x                1
-                // -------   =   --------------
-                // x + 1/Gr      1 + 1/(Gr * x)
-                //
-                float score = 1 / (1 + (1 / (planetView.planetData.growthRate * planetView.planetData.score)));
+                List<PlanetView> sourceAsList = new List<PlanetView>();
+                sourceAsList.Add(enemyStrongestPlanet);
 
-                // if this new planet is better, chose it
-                if (score > sourceScore && planetView.planetData.score > 8)
-                {
-                    sourceScore = score;
-                    source = planetView;
-                }
+                BattleManager.instance.SendShips(sourceAsList, enemyWeakestPlanet, false);
+
+                continue;
 
             }
+            // Check if attacking with one planet to another if the decision is valuable
 
-            //Then find the weakest friendly or neutral planet with best growth rate
+            bool attackSingleTarget = CheckIfAIShouldAttackPlanet(enemyStrongestPlanet, playerWeakestPlanet);
 
-            //
-            //         1
-            //   --------------
-            //      1 + Gr * x
-            //
-
-            PlanetView dest = null;
-            float destScore = 0;
-            foreach (PlanetView planetView in nonEnemyPlanets)
+            if (attackSingleTarget)
             {
-                float score = 1 / (1 + (planetView.planetData.growthRate * planetView.planetData.score));
-                if (score > destScore)
-                {
-                    destScore = score;
-                    dest = planetView;
-                }
+                Debug.Log("Attack one order given");
+
+                List<PlanetView> sourceAsList = new List<PlanetView>();
+                sourceAsList.Add(enemyStrongestPlanet);
+
+                BattleManager.instance.SendShips(sourceAsList, playerWeakestPlanet, false);
             }
+            else
+            {
+
+
+                // Placeholder, get another enemy planet with enough score to help the strongest one
+                foreach (PlanetView planetView in enemyPlanets)
+                {
+                    // Get one different to the strongest
+                    if (planetView != enemyStrongestPlanet)
+                    {
+                        if (planetView.planetData.score + enemyStrongestPlanet.planetData.score > playerWeakestPlanet.planetData.score)
+                        {
+                            Debug.Log("Attack multiple order given");
+
+                            List<PlanetView> sourceAsList = new List<PlanetView>();
+                            sourceAsList.Add(enemyStrongestPlanet);
+                            sourceAsList.Add(planetView);
+
+                            BattleManager.instance.SendShips(sourceAsList, playerWeakestPlanet, false);
+                        }
+                    }
+                }
+
+
+                  
+            }
+
+            // Check if not if it can conquer a planet with multiple planets
 
             // Finally take the decision to attack
 
-            // null check
-            if (dest != null && source != null)
-            {
-                Debug.Log(dest.name + source.name);
-                // If we pass the minimun requirements, send the order to attack
-                if ((source.planetData.score > dest.planetData.score * playerPlanetDecisionWeight && dest.planetData.playerControlled) ||
-                    (source.planetData.score > dest.planetData.score * neutralPlanetDecisionWeight && !dest.planetData.playerControlled))
-                {
-                    Debug.Log("ATTACK ORDER ENEMY AI");
 
-                    List<PlanetView> sourceAsList = new List<PlanetView>();
-                    sourceAsList.Add(source);
-
-                    BattleManager.instance.SendShips(sourceAsList, dest, false);
-                }
-            }
 
             yield return new WaitForSeconds(AITurnTime);
 
@@ -113,6 +125,81 @@ public class EnemyAIController : MonoBehaviour
 
     }
 
+    private bool CheckIfAIShouldAttackPlanet(PlanetView enemyStrongestPlanet, PlanetView playerWeakestPlanet)
+    {
+        bool shouldAttack = false;
+
+        if (playerWeakestPlanet != null && enemyStrongestPlanet != null)
+        {
+            Debug.Log(playerWeakestPlanet.name + enemyStrongestPlanet.name);
+            // If we pass the minimun requirements, send the order to attack
+            if ((enemyStrongestPlanet.planetData.score > playerWeakestPlanet.planetData.score * playerPlanetDecisionWeight && playerWeakestPlanet.planetData.playerControlled) ||
+                (enemyStrongestPlanet.planetData.score > playerWeakestPlanet.planetData.score * neutralPlanetDecisionWeight && !playerWeakestPlanet.planetData.playerControlled))
+            {
+                shouldAttack = true;
+            }
+        }
+        return shouldAttack;
+    }
+
+    private bool CheckIfAIShouldDefendPlanet(PlanetView enemyWeakestPlanet, PlanetView enemyStrongestPlanet, PlanetView playerStrongestPlanet)
+    {
+        bool shouldDefend = false;
+
+        if(playerStrongestPlanet.planetData.score > 2 * enemyWeakestPlanet.planetData.score && 
+           enemyStrongestPlanet.planetData.score + enemyWeakestPlanet.planetData.score > 2 * enemyWeakestPlanet.planetData.score &&
+           Vector3.Distance(enemyWeakestPlanet.transform.position,playerStrongestPlanet.transform.position) < 
+           Vector3.Distance(enemyStrongestPlanet.transform.position, playerStrongestPlanet.transform.position))
+        {
+            shouldDefend = true;
+        }
+
+        return shouldDefend;
+    }
+
+    private void GetStrongestAndWeakestPlanet(ref PlanetView weakestPlanet,ref PlanetView strongestPlanet, bool getEnemyPlanets)
+    {
+        float weakestScore = 0;
+        float enemyStrongestScore = 0;
+
+        List<PlanetView> planetsToCheck;
+
+        if (getEnemyPlanets)
+        {
+            planetsToCheck = enemyPlanets;
+        }
+        else
+        {
+            planetsToCheck = nonEnemyPlanets;
+        }
+
+        // Find my strongest planet
+        foreach (PlanetView planetView in planetsToCheck)
+        {
+            // Get the score of the planet relative to the current power and the growth rate 
+            //
+            //    x                1
+            // -------   =   --------------
+            // x + 1/Gr      1 + 1/(Gr * x)
+            //
+            float score = 1 / (1 + (1 / (planetView.planetData.growthRate * planetView.planetData.score)));
+
+            // if this new planet is better, chose it
+            if (score > enemyStrongestScore)
+            {
+                enemyStrongestScore = score;
+                strongestPlanet = planetView;
+            }
+            // Get the weaker one. Get the weaker than prev one but also add it if we dont have any
+            if (score < weakestScore || weakestScore == 0)
+            {
+                weakestScore = score;
+                weakestPlanet = planetView;
+            }
+        }
+    }
+
+    // Method used to update the list used by AI to take decisions
     public void UpdatePlanetsList()
     {
         // get a list of every planet ingame
