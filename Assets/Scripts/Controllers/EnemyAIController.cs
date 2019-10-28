@@ -57,7 +57,6 @@ public class EnemyAIController : MonoBehaviour
 
             GetStrongestAndWeakestPlanet(ref playerWeakestPlanet, ref playerStrongestPlanet, false);
 
-            Debug.Log(playerWeakestPlanet.name + playerStrongestPlanet.name + enemyWeakestPlanet.name + enemyStrongestPlanet.name);
 
             // Check if any of the enemyAI planets should be defended
             bool defendAIPlanet = CheckIfAIShouldDefendPlanet(enemyWeakestPlanet, enemyStrongestPlanet, playerStrongestPlanet);

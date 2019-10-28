@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level1Data
   m_EditorClassIdentifier: 
   numberOfPlanets: 4
-  planetsScore: 0f0000000f0000000f00000019000000
+  planetsScore: 0f0000000f0000000f00000014000000
   planetsPosition:
   - {x: 0, y: 0.34, z: -0.371}
   - {x: 0.06999969, y: 0.466, z: 0.292}
