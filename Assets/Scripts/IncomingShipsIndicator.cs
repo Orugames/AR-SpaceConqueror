@@ -36,6 +36,10 @@ public class IncomingShipsIndicator : MonoBehaviour
         }
         shipIcon.color = incShipsColorByAlliance;
 
+        if (this.numberOfIncShips <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     // Update is called once per frame

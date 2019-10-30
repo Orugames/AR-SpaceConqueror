@@ -8,6 +8,7 @@ public class TweensManager : MonoBehaviour
 
     public DoorsOpeningTween doorsOpeningTween;
     public PlanetsTween planetsTween;
+    public LevelSelectorTween LevelSelectorTween;
 
     void Awake()
     {
@@ -34,6 +35,10 @@ public class TweensManager : MonoBehaviour
     }
 
     public void ExpandPlanetsTween()
+    {
+        planetsTween.ExpandInitialPlanetsTween();
+    }
+    public void ExpandLevelSelector()
     {
         planetsTween.ExpandInitialPlanetsTween();
     }

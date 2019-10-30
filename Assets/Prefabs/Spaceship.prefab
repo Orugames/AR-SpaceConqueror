@@ -81,8 +81,10 @@ MonoBehaviour:
   spaceshipData: {fileID: 6439161768498364445}
   trail: {fileID: 1579198736720123443}
   startingPlanet: {fileID: 0}
+  targetPlanet: {fileID: 0}
   attackOrder: 0
   rotateOrder: 0
+  incomingShipUiIndicator: {fileID: 0}
 --- !u!114 &6439161768498364445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +117,7 @@ MonoBehaviour:
   nativePlanet: {fileID: 0}
   target: {fileID: 0}
   speed: 0.1
-  rotationSpeed: 200
+  rotationSpeed: 1000
   raycastRange: 1
   timeToRaycast: 0.1
   attackOrderGiven: 0

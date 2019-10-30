@@ -14,7 +14,7 @@ public class EnemyAIController : MonoBehaviour
 
     public GameObject allPlanetsContainer;
 
-    public float AITurnTime;
+    public float AITurnTime = 10;
 
     public bool battleStarted;
     public bool AIDecisionMakingRunning;
@@ -23,6 +23,9 @@ public class EnemyAIController : MonoBehaviour
     public float playerPlanetDecisionWeight;
     [Range(0.5f, 2)]
     public float neutralPlanetDecisionWeight;
+
+    public bool initAIController;
+
     void Start()
     {
 
@@ -31,9 +34,9 @@ public class EnemyAIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (battleStarted)
+        if (battleStarted && !initAIController)
         {
-            battleStarted = false;
+            initAIController = true;
             AIDecisionMakingRunning = true;
 
             UpdatePlanetsList();
@@ -43,8 +46,10 @@ public class EnemyAIController : MonoBehaviour
     }
     public IEnumerator EnemyAITurn()
     {
-        while (AIDecisionMakingRunning || enemyPlanets.Count == 0)
+
+        while (AIDecisionMakingRunning || enemyPlanets.Count != 0)
         {
+
             //Find my strongest & weakest Planet
             PlanetView enemyWeakestPlanet = null;
             PlanetView enemyStrongestPlanet = null;
@@ -57,7 +62,6 @@ public class EnemyAIController : MonoBehaviour
 
             GetStrongestAndWeakestPlanet(ref playerWeakestPlanet, ref playerStrongestPlanet, false);
 
-
             // Check if any of the enemyAI planets should be defended
             bool defendAIPlanet = CheckIfAIShouldDefendPlanet(enemyWeakestPlanet, enemyStrongestPlanet, playerStrongestPlanet);
 
@@ -68,6 +72,7 @@ public class EnemyAIController : MonoBehaviour
                 sourceAsList.Add(enemyStrongestPlanet);
 
                 BattleManager.instance.SendShips(sourceAsList, enemyWeakestPlanet, false);
+                yield return new WaitForSeconds(AITurnTime);
 
                 continue;
 
@@ -95,6 +100,13 @@ public class EnemyAIController : MonoBehaviour
                     // Get one different to the strongest
                     if (planetView != enemyStrongestPlanet)
                     {
+                        if (playerWeakestPlanet == null || enemyStrongestPlanet == null)
+                        {
+                            //yield return new WaitForSeconds(AITurnTime);
+
+                            continue;
+                        }
+
                         if (planetView.planetData.score + enemyStrongestPlanet.planetData.score > playerWeakestPlanet.planetData.score)
                         {
                             Debug.Log("Attack multiple order given");
@@ -144,6 +156,11 @@ public class EnemyAIController : MonoBehaviour
     private bool CheckIfAIShouldDefendPlanet(PlanetView enemyWeakestPlanet, PlanetView enemyStrongestPlanet, PlanetView playerStrongestPlanet)
     {
         bool shouldDefend = false;
+
+        if (playerStrongestPlanet == null || enemyWeakestPlanet == null || enemyStrongestPlanet == null)
+        {
+            return shouldDefend;
+        }
 
         if(playerStrongestPlanet.planetData.score > 2 * enemyWeakestPlanet.planetData.score && 
            enemyStrongestPlanet.planetData.score + enemyWeakestPlanet.planetData.score > 2 * enemyWeakestPlanet.planetData.score &&
