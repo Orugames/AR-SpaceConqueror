@@ -20,7 +20,7 @@ public class BattleManager : MonoBehaviour
 
     public GameObject enemySpaceshipPrefab;
 
-    
+    public GameObject incomingShipIndicatorPrefab;
 
 
     void Awake()
@@ -47,6 +47,26 @@ public class BattleManager : MonoBehaviour
     /// <param name="planetAttacked"></param>
     public void SendShips(List<PlanetView> planetsAttacking, PlanetView planetAttacked, bool orderGivenByPlayer)
     {
+        // Get the total number of ships 
+        int numberOfShips = 0;
+        List<Spaceship> spaceshipsSent = new List<Spaceship>();
+
+        // Get the incoming alliance
+        PlanetsAlliance spaceshipsAlliance;
+
+        if (orderGivenByPlayer)
+        {
+            spaceshipsAlliance = PlanetsAlliance.playerControlled;
+        }
+        else
+        {
+            spaceshipsAlliance = PlanetsAlliance.enemyControlled;
+
+        }
+
+        GameObject newIncShipIndicator = Instantiate(incomingShipIndicatorPrefab, Vector3.zero, Quaternion.identity, planetAttacked.UiIndicatorContainer.transform);
+
+
         // Send spaceships from their planet to the attacked one
         foreach (PlanetView planetView in planetsAttacking)
         {
@@ -74,12 +94,22 @@ public class BattleManager : MonoBehaviour
 
                 newShip.GetComponent<Spaceship>().MoveToPlanet(planetAttacked,path);
 
+                // UI Indicator logic
+                newShip.GetComponent<Spaceship>().incomingShipUiIndicator = newIncShipIndicator.GetComponent<IncomingShipsIndicator>();
+                spaceshipsSent.Add(newShip.GetComponent<Spaceship>());
+                numberOfShips++;
+
             }
 
-
-
-
         }
+
+        // Create an IncomingShipsIndicator on the planet that's being attacked
+        newIncShipIndicator.transform.parent = planetAttacked.UiIndicatorContainer.transform;
+        newIncShipIndicator.transform.localPosition = new Vector3(0, 0.5f, 0); //NEEDS REFACTOR
+
+        // Init the neccesary values
+        newIncShipIndicator.GetComponent<IncomingShipsIndicator>().InitIndicator(numberOfShips, spaceshipsSent, spaceshipsAlliance);
+
 
     }
     

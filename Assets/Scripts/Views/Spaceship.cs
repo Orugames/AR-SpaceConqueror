@@ -15,6 +15,9 @@ public class Spaceship : MonoBehaviour
 
     public bool attackOrder;
     public bool rotateOrder;
+
+    public IncomingShipsIndicator incomingShipUiIndicator;
+
     // Start is called before the first frame update
     void Start()
     {

@@ -21,6 +21,7 @@ public class PlanetView : MonoBehaviour
     public TextMeshProUGUI planetOwnerText;
     public Image UiImage;
     public GameObject triangleIndicator;
+    public GameObject UiIndicatorContainer;
 
     public bool planetSelectedByPlayer;
 
@@ -164,6 +165,8 @@ public class PlanetView : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         Debug.Log("trigger");
+
+        // Do something only if it is a colliding ship
         if (other.GetComponent<Spaceship>())
         {
             Spaceship spaceshipColliding = other.GetComponent<Spaceship>();
@@ -186,6 +189,15 @@ public class PlanetView : MonoBehaviour
             // Change score depeding on ship colliding
             ManageShipCollision(spaceshipColliding);
 
+            // Update the incoming ship indicator relative to this ship
+            foreach (IncomingShipsIndicator incShipIndicator in GetComponentsInChildren<IncomingShipsIndicator>())
+            {
+                if (incShipIndicator == spaceshipColliding.incomingShipUiIndicator)
+                {
+                    incShipIndicator.numberOfIncShips--;
+                    incShipIndicator.UpdateValues();
+                }
+            }
           
         }
     }
