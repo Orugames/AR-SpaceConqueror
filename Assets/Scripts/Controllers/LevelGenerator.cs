@@ -27,11 +27,11 @@ public class LevelGenerator : MonoBehaviour
     public void GenerateLevel(LevelData levelDataSent)
     {
         // Instantiate  the sun
-        GameObject newSun = Instantiate(sunPrefab, Vector3.zero, Quaternion.identity);
+        /*GameObject newSun = Instantiate(sunPrefab, Vector3.zero, Quaternion.identity);
 
         newSun.transform.parent = sunContainer.transform;
         newSun.transform.localScale = 0.01f * Vector3.one;
-        newSun.transform.localPosition = new Vector3(0, 0.6f, 0);
+        newSun.transform.localPosition = new Vector3(0, 0.6f, 0);*/
 
 
         // Instantiate the planets in levelData

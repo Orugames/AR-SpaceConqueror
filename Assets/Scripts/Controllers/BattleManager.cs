@@ -64,6 +64,7 @@ public class BattleManager : MonoBehaviour
 
         }
 
+        // Instantiate the indicator
         GameObject newIncShipIndicator = Instantiate(incomingShipIndicatorPrefab, Vector3.zero, Quaternion.identity, planetAttacked.UiIndicatorContainer.transform);
 
 
@@ -73,7 +74,7 @@ public class BattleManager : MonoBehaviour
             // If it is its own planet, do nothing
             if (planetView == planetAttacked)
             {
-                return;
+                continue;
             }
 
             // Cut in half the score of each planet
@@ -95,7 +96,6 @@ public class BattleManager : MonoBehaviour
                 newShip.GetComponent<Spaceship>().MoveToPlanet(planetAttacked,path);
 
                 // UI Indicator logic
-                newShip.GetComponent<Spaceship>().incomingShipUiIndicator = newIncShipIndicator.GetComponent<IncomingShipsIndicator>();
                 spaceshipsSent.Add(newShip.GetComponent<Spaceship>());
                 numberOfShips++;
 
@@ -106,13 +106,21 @@ public class BattleManager : MonoBehaviour
         // Create an IncomingShipsIndicator on the planet that's being attacked
         newIncShipIndicator.transform.parent = planetAttacked.UiIndicatorContainer.transform;
         newIncShipIndicator.transform.localPosition = new Vector3(0, 0.5f, 0); //NEEDS REFACTOR
+        newIncShipIndicator.transform.localEulerAngles = Vector3.zero;
+
 
         // Init the neccesary values
         newIncShipIndicator.GetComponent<IncomingShipsIndicator>().InitIndicator(numberOfShips, spaceshipsSent, spaceshipsAlliance);
 
+        // Send the attacking ships the information of their indicator
+        foreach(Spaceship spaceship in spaceshipsSent)
+        {
+            spaceship.incomingShipUiIndicator = newIncShipIndicator.GetComponent<IncomingShipsIndicator>();
+        }
+
 
     }
-    
+
     // Method used to inform the enemyAI of own planets after every change of owner
     public void UpdateAIPlanets()
     {
