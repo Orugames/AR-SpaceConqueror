@@ -22,5 +22,9 @@ public class LevelBriefingTween : MonoBehaviour
         });
         levelBrienfingCanvasGroup.transform.DOScaleY(0, 1).From(levelBrienfingCanvasGroup.transform.localScale.y);
 
+        // Show floor renderer
+        TweensManager.instance.floorShaderTween.ShowFloor();
+
+
     }
 }

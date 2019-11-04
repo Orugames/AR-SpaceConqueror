@@ -36,6 +36,8 @@ public class DoorsOpeningTween : MonoBehaviour
         plane3.transform.DORotate(plane3.transform.eulerAngles + new Vector3(0, 0, 45), 5).SetDelay(2);
         plane4.transform.DORotate(plane4.transform.eulerAngles + new Vector3(0, 0, 45), 5).SetDelay(2);
         plane5.transform.DORotate(plane5.transform.eulerAngles + new Vector3(0, 0, 45), 5).SetDelay(2);
-        plane6.transform.DORotate(plane6.transform.eulerAngles + new Vector3(0, 0, 45), 5).SetDelay(2).OnComplete(() => TweensManager.instance.ExpandPlanetsTween());
+
+        plane6.transform.DORotate(plane6.transform.eulerAngles + new Vector3(0, 0, 45), 5).SetDelay(2).OnComplete(() => 
+        TweensManager.instance.planetsTween.ExpandInitialPlanetsTween());
     }
 }

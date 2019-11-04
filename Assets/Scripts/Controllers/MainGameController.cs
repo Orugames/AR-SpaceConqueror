@@ -113,11 +113,12 @@ public class MainGameController : MonoBehaviour
                 currentLevelData = levelDataSelected;
 
                 // Disable parent GO of levelSelected
-                hit.collider.transform.parent.gameObject.SetActive(false);
+                //hit.collider.transform.parent.gameObject.SetActive(false);
 
                 // Start the tween for the mission briefing
                 TweensManager.instance.levelBriefingTween.levelBrienfingCanvasGroup.gameObject.SetActive(true);
-                TweensManager.instance.ShowLevelBriefing();
+                TweensManager.instance.levelSelectorTween.HideLevelSelector();
+                TweensManager.instance.levelBriefingTween.ShowBriefingScreen();
 
                 // Load the level
                 //levelGenerator.GenerateLevel(levelDataSelected);
@@ -142,6 +143,7 @@ public class MainGameController : MonoBehaviour
     {
         enemyAIController.battleStarted = true;
         playerController.battleStarted = true;
+
 
         currentGameState = GameStates.battle;
     }

@@ -11,6 +11,7 @@ public class TweensManager : MonoBehaviour
     public LevelSelectorTween levelSelectorTween;
     public LevelBriefingTween levelBriefingTween;
     public LevelCompletedTween levelCompletedTween;
+    public FloorShaderTween floorShaderTween;
 
     void Awake()
     {
@@ -30,7 +31,7 @@ public class TweensManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void StartGameTween()
+    /*public void StartGameTween()
     {
         doorsOpeningTween.OpenDoorsTween();
 
@@ -41,9 +42,15 @@ public class TweensManager : MonoBehaviour
         planetsTween.ExpandInitialPlanetsTween();
     }
 
+
+    // LEVEL SELECTOR TWEENS
     public void ExpandLevelSelector()
     {
-        planetsTween.ExpandInitialPlanetsTween();
+        levelSelectorTween.ExpandLevelSelector();
+    }
+    public void HideLevelSelector()
+    {
+        levelSelectorTween.HideLevelSelector();
     }
 
     // LEVEL BRIEFING TWEENS
@@ -54,6 +61,12 @@ public class TweensManager : MonoBehaviour
     public void HideLevelBriefing()
     {
         levelBriefingTween.HideBriefingScreen();
+    }
+
+    // FLOOR SHADER TWEEN
+    public void ShowFloor()
+    {
+        floorShaderTween.ShowFloor();
     }
 
     // LEVEL COMPLETED TWEENS
@@ -68,5 +81,5 @@ public class TweensManager : MonoBehaviour
     public void HideLevelCompletedNextLevel()
     {
         levelCompletedTween.HideLevelCompletedNextLevel();
-    }
+    }*/
 }

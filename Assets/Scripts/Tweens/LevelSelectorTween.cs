@@ -21,4 +21,17 @@ public class LevelSelectorTween : MonoBehaviour
         levelSelectorGO.transform.DORotate(new Vector3(0, 360, 0), 3, RotateMode.LocalAxisAdd);
         levelSelectorGO.transform.DOScale(0.2f,3).From(0);
     }
+    public void HideLevelSelector()
+    {
+
+        for (int i = 0; i < levelSelectorGO.transform.childCount; i++)
+        {
+            levelSelectorGO.transform.GetChild(i).transform.DOScaleZ(0, 0.75f).OnComplete(() => 
+            {
+                levelSelectorGO.SetActive(false);
+            }
+            );
+
+        }
+    }
 }
