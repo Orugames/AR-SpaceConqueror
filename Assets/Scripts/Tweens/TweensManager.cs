@@ -8,7 +8,9 @@ public class TweensManager : MonoBehaviour
 
     public DoorsOpeningTween doorsOpeningTween;
     public PlanetsTween planetsTween;
-    public LevelSelectorTween LevelSelectorTween;
+    public LevelSelectorTween levelSelectorTween;
+    public LevelBriefingTween levelBriefingTween;
+    public LevelCompletedTween levelCompletedTween;
 
     void Awake()
     {
@@ -38,9 +40,33 @@ public class TweensManager : MonoBehaviour
     {
         planetsTween.ExpandInitialPlanetsTween();
     }
+
     public void ExpandLevelSelector()
     {
         planetsTween.ExpandInitialPlanetsTween();
     }
 
+    // LEVEL BRIEFING TWEENS
+    public void ShowLevelBriefing()
+    {
+        levelBriefingTween.ShowBriefingScreen();
+    }
+    public void HideLevelBriefing()
+    {
+        levelBriefingTween.HideBriefingScreen();
+    }
+
+    // LEVEL COMPLETED TWEENS
+    public void ShowLevelCompleted()
+    {
+        levelCompletedTween.ShowLevelCompletedScreen();
+    }
+    public void HideLevelCompletedGoBack()
+    {
+        levelCompletedTween.HideLevelCompletedGoBack();
+    }
+    public void HideLevelCompletedNextLevel()
+    {
+        levelCompletedTween.HideLevelCompletedNextLevel();
+    }
 }

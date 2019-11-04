@@ -144,7 +144,7 @@ public class ARFoundationController : MonoBehaviour
                 UIAnimationPlacement.SetActive(false);
 
                 // Inform enemy AI to run preBattle Mode
-                MainGameController.instance.currentGameState = GameStates.preBattle;
+                MainGameController.instance.currentGameState = GameStates.levelBriefing;
 
                 // Stars necessary tweens
                 //TweensManager.instance.StartGameTween();

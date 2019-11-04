@@ -3,16 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameStates { positioningCenter, mainMenu, levelSelectionScreen, preBattle, battle, postBattle }
+public enum GameStates { positioningCenter, mainMenu, levelSelectionScreen, levelBriefing, battle, victoryScreen, defeatScreen }
 public class MainGameController : MonoBehaviour
 {
     public GameStates currentGameState = GameStates.mainMenu;
 
+    public ARFoundationController aRFoundationController;
     public LevelGenerator levelGenerator;
     public PlayerController playerController;
     public EnemyAIController enemyAIController;
+    public BattleManager battleManager;
 
-    public LevelData levelData1;
+    public LevelData currentLevelData;
+
+    public LevelsCompletionScriptable levelsCompletedData;
+
 
 
     public int currentLevel = 0;
@@ -55,7 +60,7 @@ public class MainGameController : MonoBehaviour
             // Level selection logic
             LevelSelectionInput();
         }
-        else if (currentGameState == GameStates.preBattle)
+        else if (currentGameState == GameStates.levelBriefing)
         {
             // Check for inputs on canvas
         }
@@ -65,17 +70,23 @@ public class MainGameController : MonoBehaviour
             if (!currentLevelInitialized)
             {
                 // Init level reading from our levelData
-                levelGenerator.GenerateLevel(levelData1);
+                levelGenerator.GenerateLevel(currentLevelData);
 
                 currentLevelInitialized = true;
             }
 
-            enemyAIController.battleStarted = true;
-            playerController.battleStarted = true;
+            //enemyAIController.battleStarted = true;
+            //playerController.battleStarted = true;
+
+            
 
 
             // Check for inputs in PlayerController
-        }else if (currentGameState == GameStates.postBattle)
+        }else if (currentGameState == GameStates.victoryScreen)
+        {
+            // Check for inputs on canvas
+        }
+        else if (currentGameState == GameStates.defeatScreen)
         {
             // Check for inputs on canvas
         }
@@ -99,13 +110,19 @@ public class MainGameController : MonoBehaviour
                 }
                 LevelData levelDataSelected = hit.collider.GetComponent<LevelDataContainer>().levelData;
 
+                currentLevelData = levelDataSelected;
+
                 // Disable parent GO of levelSelected
                 hit.collider.transform.parent.gameObject.SetActive(false);
 
+                // Start the tween for the mission briefing
+                TweensManager.instance.levelBriefingTween.levelBrienfingCanvasGroup.gameObject.SetActive(true);
+                TweensManager.instance.ShowLevelBriefing();
+
                 // Load the level
-                levelGenerator.GenerateLevel(levelDataSelected);
-                currentLevelInitialized = true;
-                currentGameState = GameStates.battle;
+                //levelGenerator.GenerateLevel(levelDataSelected);
+                //currentLevelInitialized = true;
+                currentGameState = GameStates.levelBriefing;
 
 
             }
@@ -123,6 +140,9 @@ public class MainGameController : MonoBehaviour
     }
     public void StartBattle()
     {
+        enemyAIController.battleStarted = true;
+        playerController.battleStarted = true;
+
         currentGameState = GameStates.battle;
     }
 }

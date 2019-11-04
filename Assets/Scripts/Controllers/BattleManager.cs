@@ -14,6 +14,8 @@ public class BattleManager : MonoBehaviour
 
     public EnemyAIController enemyAIController = null;
 
+    public GameObject allPlanetsContainer;
+
     public GameObject shipsContainer;
 
     public GameObject playerSpaceshipPrefab;
@@ -77,11 +79,8 @@ public class BattleManager : MonoBehaviour
                 continue;
             }
 
-            // Cut in half the score of each planet
-            planetView.planetData.score /= 2;
-
             // Send the number according to the half of the score of the planet
-            for (int i = 0; i < planetView.planetData.score; i++)
+            for (int i = 0; i < planetView.planetData.score/2; i++)
             {
                 GameObject newShip = planetView.spaceshipsOwnedByPlanet[i];
 
@@ -100,6 +99,9 @@ public class BattleManager : MonoBehaviour
                 numberOfShips++;
 
             }
+
+            // Cut in half the score of each planet
+            planetView.planetData.score = Mathf.RoundToInt(planetView.planetData.score / 2f + 0.1f);
 
         }
 
@@ -124,6 +126,38 @@ public class BattleManager : MonoBehaviour
     // Method used to inform the enemyAI of own planets after every change of owner
     public void UpdateAIPlanets()
     {
+        // get a list of every planet ingame
+        List<PlanetView> numberOfPlanets = new List<PlanetView>(allPlanetsContainer.GetComponentsInChildren<PlanetView>());
+
+        // Set a counter for the number of player or enemy planets
+        int nPlayerPlanets = 0;
+        int nEnemyPlanets = 0;
+
+        // Search every planet on scene
+        foreach(PlanetView planetView in numberOfPlanets)
+        {
+            if (planetView.planetData.enemyControlled)
+            {
+                nEnemyPlanets++;
+            }
+            else if (planetView.planetData.playerControlled)
+            {
+                nPlayerPlanets++;
+            }
+        }
+
+        // If the player has no planets left, go to loseScreen
+        if (nPlayerPlanets == 0)
+        {
+            MainGameController.instance.currentGameState = GameStates.defeatScreen;
+
+        }
+        // If enemy has no planets left, we win
+        else if (nEnemyPlanets == 0)
+        {
+            MainGameController.instance.currentGameState = GameStates.victoryScreen;
+        }
+
         enemyAIController.UpdatePlanetsList();
     }
 }

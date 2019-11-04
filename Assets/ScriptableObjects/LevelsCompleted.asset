@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a655e189b4cd4a4888fd8017aa5918a, type: 3}
+  m_Name: LevelsCompleted
+  m_EditorClassIdentifier: 
+  levelCompleted1: 0
+  levelCompleted2: 0
+  levelCompleted3: 0
+  levelCompleted4: 0
+  levelCompleted5: 0
+  levelCompleted6: 0
+  levelCompleted7: 0
+  levelCompleted8: 0
+  levelCompleted9: 0
+  levelCompleted10: 0
+  levelCompleted11: 0
+  levelCompleted12: 0
+  levelCompleted13: 0
+  levelCompleted14: 0
+  levelCompleted15: 0
+  levelCompleted16: 0

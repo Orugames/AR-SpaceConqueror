@@ -109,7 +109,9 @@ public class PlanetView : MonoBehaviour
         newSpaceship.transform.localEulerAngles = randomRotation;
 
         // Now add the radius depending on the y vector of the ship relative to the radius
-        newSpaceship.transform.Translate(newSpaceship.transform.up * (planetData.planetRadius * 1.5f), Space.World);
+        newSpaceship.transform.Translate(newSpaceship.transform.up *
+                                          (planetData.planetRadius * UnityEngine.Random.Range(1.4f,1.6f)),
+                                          Space.World);
 
 
         newSpaceship.GetComponent<Spaceship>().SetShipToRotate(this);
@@ -133,13 +135,16 @@ public class PlanetView : MonoBehaviour
 
     private IEnumerator UpdateScoreAndCreateShip()
     {
+        //yield return new WaitForSeconds((1 / planetData.growthRate) * 2);
+
         shipBuilding = true;
         while (shipBuilding)
         {
+            yield return new WaitForSeconds((1 / planetData.growthRate) * 2);
+
             planetData.score += 1;         
             CreateNewSpaceship();
             
-            yield return new WaitForSeconds((1 / planetData.growthRate) * 2);
         }
     }
 
@@ -172,7 +177,7 @@ public class PlanetView : MonoBehaviour
             Spaceship spaceshipColliding = other.GetComponent<Spaceship>();
 
             //Check if score is less than 0 so it should change owner
-            if (planetData.score <= 0)
+            if (planetData.score == 0)
             {
                 SwitchOwnerOfPlanet(spaceshipColliding);
 
@@ -286,7 +291,7 @@ public class PlanetView : MonoBehaviour
         InitUiElements();
 
         // Reset value of planet to 1
-        planetData.score = 1;
+        planetData.score = 0;
 
     }
 }
