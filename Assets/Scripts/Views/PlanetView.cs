@@ -113,9 +113,11 @@ public class PlanetView : MonoBehaviour
                                           (planetData.planetRadius * UnityEngine.Random.Range(1.4f,1.6f)),
                                           Space.World);
 
+        Spaceship spaceshipView = newSpaceship.GetComponent<Spaceship>();
 
-        newSpaceship.GetComponent<Spaceship>().SetShipToRotate(this);
-        newSpaceship.GetComponent<Spaceship>().spaceshipData.value = 1;
+        spaceshipView.SetShipToRotate(this);
+        spaceshipView.spaceshipData.value = 1;
+
 
         spaceshipsOwnedByPlanet.Add(newSpaceship);
     }
@@ -213,7 +215,7 @@ public class PlanetView : MonoBehaviour
 
 
         //Keep the trail after collision
-        spaceshipColliding.trail.transform.parent = null;
+        //spaceshipColliding.trail.transform.parent = null;
 
         // If it is an allied spaceship
         if ((spaceshipColliding.spaceshipData.playerControlled && planetData.playerControlled) ||
@@ -222,12 +224,12 @@ public class PlanetView : MonoBehaviour
             // Add score depending on the value
             planetData.score += spaceshipColliding.spaceshipData.value;
 
+            
             //Create a new spaceship
             CreateNewSpaceship();
 
-            // Destroy the ship and all childrens
- 
-            Destroy(spaceshipColliding.gameObject);
+            // Cast the dissolve animation and then Destroy the ship and all childrens
+           spaceshipColliding.DissolveAndDestroy();
         }
         // Different alliance spaceship colliding
         else if ((spaceshipColliding.spaceshipData.playerControlled && planetData.enemyControlled) ||
@@ -241,8 +243,7 @@ public class PlanetView : MonoBehaviour
             spaceshipsOwnedByPlanet.Remove(spaceshipsOwnedByPlanet[0]);
 
             // Destroy the ship
-         
-            Destroy(spaceshipColliding.gameObject);
+            spaceshipColliding.DissolveAndDestroy();
         }
         // Neutral planet
         else if (!planetData.enemyControlled && !planetData.playerControlled)
@@ -253,8 +254,7 @@ public class PlanetView : MonoBehaviour
 
 
             // Destroy the ship
-   
-            Destroy(spaceshipColliding.gameObject);
+            spaceshipColliding.DissolveAndDestroy();
         }
 
     }

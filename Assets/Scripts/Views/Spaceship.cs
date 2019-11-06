@@ -6,6 +6,7 @@ using DG.Tweening;
 public class Spaceship : MonoBehaviour
 {
     public SpaceshipData spaceshipData;
+    public GameObject spaceshipMesh;
     ShipAvoidanceLogic shipAvoidanceLogic;
 
     public TrailRenderer trail;
@@ -18,10 +19,20 @@ public class Spaceship : MonoBehaviour
 
     public IncomingShipsIndicator incomingShipUiIndicator;
 
+    public List<Material> shipMaterials;
+
     // Start is called before the first frame update
     void Start()
     {
         shipAvoidanceLogic = GetComponent<ShipAvoidanceLogic>();
+
+        // Store all the materials on this ship to iterate over them
+        Material[] materialsArray = spaceshipMesh.GetComponent<MeshRenderer>().materials;
+        shipMaterials = new List<Material>(materialsArray);
+
+        StartCoroutine(shipAvoidanceLogic.UndissolveShip(shipMaterials, trail));
+
+
     }
 
     // Update is called once per frame
@@ -56,12 +67,20 @@ public class Spaceship : MonoBehaviour
     }
     private void OnDestroy()
     {
+        if (trail.transform.parent != null) trail.transform.parent = null;
+
         trail.autodestruct = true;
-        trail = null;
     }
     public void SetShipToRotate(PlanetView startingPlanet)
     {
         this.startingPlanet = startingPlanet;
         rotateOrder = true;
     }
+
+    public void DissolveAndDestroy()
+    {
+       StartCoroutine(shipAvoidanceLogic.DissolveAndDestroy(shipMaterials));
+    }
+
+
 }

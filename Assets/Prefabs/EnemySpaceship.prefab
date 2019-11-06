@@ -127,12 +127,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceshipData: {fileID: 6439161768498364445}
+  spaceshipMesh: {fileID: 1777279817950906164}
   trail: {fileID: 1129144089826767982}
   startingPlanet: {fileID: 0}
   targetPlanet: {fileID: 0}
+  dissolveSpeed: 1
   attackOrder: 0
   rotateOrder: 0
   incomingShipUiIndicator: {fileID: 0}
+  shipMaterials: []
 --- !u!114 &6439161768498364445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +424,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bc09ec7bfffd0148a42fda42433c580, type: 3}
+--- !u!1 &1777279817950906164 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 5bc09ec7bfffd0148a42fda42433c580,
+    type: 3}
+  m_PrefabInstance: {fileID: 7749506960438861373}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3382611561510712615 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 5bc09ec7bfffd0148a42fda42433c580,

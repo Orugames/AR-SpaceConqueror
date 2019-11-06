@@ -79,12 +79,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceshipData: {fileID: 6439161768498364445}
+  spaceshipMesh: {fileID: 6504804447862565417}
   trail: {fileID: 1579198736720123443}
   startingPlanet: {fileID: 0}
   targetPlanet: {fileID: 0}
   attackOrder: 0
   rotateOrder: 0
   incomingShipUiIndicator: {fileID: 0}
+  shipMaterials: []
 --- !u!114 &6439161768498364445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +122,7 @@ MonoBehaviour:
   rotationSpeed: 1000
   raycastRange: 1
   timeToRaycast: 0.1
+  dissolveSpeed: 0.00175
   attackOrderGiven: 0
   obstacleDetected: 0
 --- !u!1 &3473390592287903845
@@ -347,9 +350,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b0fb2704ff57cb443b20e0bd970731ac, type: 2}
   - {fileID: 2100000, guid: 6534c0387d272224aa899e95c90bff10, type: 2}
   - {fileID: 2100000, guid: 899c9f4fcde39864f8da3489619dbdc8, type: 2}
+  - {fileID: 2100000, guid: b0fb2704ff57cb443b20e0bd970731ac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

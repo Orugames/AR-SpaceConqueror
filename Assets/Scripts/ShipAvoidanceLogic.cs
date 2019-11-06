@@ -13,12 +13,14 @@ public class ShipAvoidanceLogic : MonoBehaviour
     public float raycastRange;
 
     public float timeToRaycast;
+    public float dissolveSpeed = 0.1f;
 
     private RaycastHit hit;
 
     public bool attackOrderGiven = false;
     public bool obstacleDetected = false;
 
+    Coroutine moveTowardsObjective;
     void Start()
     {
         
@@ -170,7 +172,58 @@ public class ShipAvoidanceLogic : MonoBehaviour
         yield return new WaitForEndOfFrame();
         // Start the coroutine to move towards target
         attackOrderGiven = true;
-        StartCoroutine(MoveTowardsObjective());
+        moveTowardsObjective = StartCoroutine(MoveTowardsObjective());
+
+    }
+
+    public IEnumerator DissolveAndDestroy(List<Material> shipMaterials)
+    {
+        float time = 0;
+
+        StopCoroutine(moveTowardsObjective);
+
+        // Dissolve the ship
+        while (time < 0.25f)
+        {
+            transform.Translate(Vector3.forward * Time.deltaTime * speed/4);
+
+            foreach (Material material in shipMaterials)
+            {
+                material.SetFloat("_DissolveAmount", time);
+                time += dissolveSpeed;
+
+            }
+            yield return new WaitForEndOfFrame();
+
+        }
+
+        // After dissolve, destroy this gameobject
+        Destroy(this.gameObject);
+        yield return new WaitForEndOfFrame();
+
+    }
+
+    public IEnumerator UndissolveShip(List<Material> shipMaterials, TrailRenderer trail)
+    {
+        trail.enabled = false;
+
+        float time = 0.15f;
+
+        while (time > 0)
+        {
+
+            foreach (Material material in shipMaterials)
+            {
+                material.SetFloat("_DissolveAmount", time);
+                time -= dissolveSpeed / 4;
+
+            }
+            yield return new WaitForEndOfFrame();
+
+        }
+        trail.enabled = true;
+
+        yield return new WaitForEndOfFrame();
 
     }
 
