@@ -84,11 +84,15 @@ public class MainGameController : MonoBehaviour
             // Check for inputs in PlayerController
         }else if (currentGameState == GameStates.victoryScreen)
         {
-            // Check for inputs on canvas
+            // Disable/Destroy battle Elements
+
+            // Show victory screen
         }
         else if (currentGameState == GameStates.defeatScreen)
         {
-            // Check for inputs on canvas
+            // Disable/Destroy battle Elements
+
+            // Show defeat screen
         }
     }
 

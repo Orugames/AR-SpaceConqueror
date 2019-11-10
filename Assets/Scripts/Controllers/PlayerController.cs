@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour
       
         if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Aaaaaa");
 
             // Raycast & hit elements
             Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -91,7 +90,6 @@ public class PlayerController : MonoBehaviour
 
         else if (((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) || Input.GetMouseButton(0)) && planetTouched)
         {
-            Debug.Log("ccc");
 
             //Move the position of the line
             Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -143,7 +141,6 @@ public class PlayerController : MonoBehaviour
         else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
                 || Input.GetMouseButtonUp(0))
         {
-            Debug.Log("ddd");
 
             Ray mRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;

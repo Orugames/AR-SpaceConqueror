@@ -112,7 +112,7 @@ public class ARFoundationController : MonoBehaviour
                 plane.alignment == PlaneAlignment.HorizontalUp)
             {
                 //Similar to anchors, it helps the device to maintain position and rotation of the placed objects
-                ARReferencePoint referencePoint = m_ReferencePointManager.AddReferencePoint(hit.pose);
+                ARReferencePoint referencePoint = m_ReferencePointManager.AttachReferencePoint(plane,hit.pose);
 
                 gameCenter.transform.position = hit.pose.position;
 

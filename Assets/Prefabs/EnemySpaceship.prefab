@@ -131,7 +131,6 @@ MonoBehaviour:
   trail: {fileID: 1129144089826767982}
   startingPlanet: {fileID: 0}
   targetPlanet: {fileID: 0}
-  dissolveSpeed: 1
   attackOrder: 0
   rotateOrder: 0
   incomingShipUiIndicator: {fileID: 0}
@@ -170,7 +169,8 @@ MonoBehaviour:
   speed: 0.1
   rotationSpeed: 200
   raycastRange: 1
-  timeToRaycast: 0.1
+  timeToRaycast: 1
+  dissolveSpeed: 0.1
   attackOrderGiven: 0
   obstacleDetected: 0
 --- !u!1 &735219675223248340
@@ -201,9 +201,88 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3382611561510712615}
+  - {fileID: 8455622982436039782}
   m_Father: {fileID: 529318430415315141}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4497974353708100907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8455622982436039782}
+  - component: {fileID: 8046188731168748584}
+  - component: {fileID: 7113568530933088662}
+  m_Layer: 9
+  m_Name: triangleIndicatorShip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8455622982436039782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4497974353708100907}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: 0, y: 0, z: 0.188}
+  m_LocalScale: {x: 313.42996, y: 450.0598, z: 99.99997}
+  m_Children: []
+  m_Father: {fileID: 3731766004886584803}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8046188731168748584
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4497974353708100907}
+  m_Mesh: {fileID: -5495902117074765545, guid: e0de115119e01f24597ea5059f23de97, type: 3}
+--- !u!23 &7113568530933088662
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4497974353708100907}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 3660f8e4e8c28b74f906022220656468, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &6662004596194459305
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,8 +410,8 @@ TrailRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 10
-    numCapVertices: 10
+    numCornerVertices: 1
+    numCapVertices: 1
     alignment: 0
     textureMode: 0
     shadowBias: 0.5
@@ -352,6 +431,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: spaceship2
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: 5bc09ec7bfffd0148a42fda42433c580,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9541ed342be296419710cbb468b6670, type: 2}
+    - target: {fileID: -1504981713932161579, guid: 5bc09ec7bfffd0148a42fda42433c580,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4ab3fe14ed53b2a429a66bf0ca290252, type: 2}
+    - target: {fileID: -1504981713932161579, guid: 5bc09ec7bfffd0148a42fda42433c580,
+        type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5b05629fedfccbe4e9679ecffdf568c2, type: 2}
+    - target: {fileID: -1504981713932161579, guid: 5bc09ec7bfffd0148a42fda42433c580,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4ab3fe14ed53b2a429a66bf0ca290252, type: 2}
     - target: {fileID: -4216859302048453862, guid: 5bc09ec7bfffd0148a42fda42433c580,
         type: 3}
       propertyPath: m_LocalPosition.x

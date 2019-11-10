@@ -29,46 +29,7 @@ public class ShipAvoidanceLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*// If not given the order or not target, do nothing
-        if (!attackOrderGiven || target == null)
-        {
-            return;
-        }
-
-        // If not an obstacle in sight, aim towards the target
-        if (!obstacleDetected)
-        {
-            Vector3 relativePos = target.transform.position - transform.position;
-            Quaternion rotation = Quaternion.LookRotation(relativePos);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime);
-        }
-
-        // Move towards target
-        transform.Translate(Vector3.forward * Time.deltaTime * speed);
-
-        // Then create the raycast
-        Transform ray = transform;
-
-        // If we detect an obstacle rotate a random direction until no detection
-        if (Physics.Raycast(ray.position,transform.forward, out hit, raycastRange))
-        {
-            if (hit.collider.CompareTag("Obstacle"))
-            {
-                obstacleDetected = true;
-
-                // Rotate it a random vector
-                Vector3 randomVector = new Vector3(Random.Range(0f, 1f),
-                                                   Random.Range(0f, 1f),
-                                                   Random.Range(0f, 1f));
-
-                transform.Rotate(randomVector * Time.deltaTime * speed);
-            }
-        }
-
-        // Use to debug the Physics.RayCast.
-        Debug.DrawRay(ray.position, transform.forward * 20, Color.white);*/
-
-
+      
     }
 
     public IEnumerator MoveTowardsObjective()
@@ -183,7 +144,7 @@ public class ShipAvoidanceLogic : MonoBehaviour
         StopCoroutine(moveTowardsObjective);
 
         // Dissolve the ship
-        while (time < 0.25f)
+        while (time < 0.20f)
         {
             transform.Translate(Vector3.forward * Time.deltaTime * speed/4);
 
