@@ -75,8 +75,8 @@ public class MainGameController : MonoBehaviour
                 currentLevelInitialized = true;
             }
 
-            //enemyAIController.battleStarted = true;
-            //playerController.battleStarted = true;
+            enemyAIController.battleStarted = true;
+            playerController.battleStarted = true;
 
             
 
@@ -145,8 +145,7 @@ public class MainGameController : MonoBehaviour
     }
     public void StartBattle()
     {
-        enemyAIController.battleStarted = true;
-        playerController.battleStarted = true;
+
 
 
         currentGameState = GameStates.battle;

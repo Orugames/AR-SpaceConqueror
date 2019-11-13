@@ -118,9 +118,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nativePlanet: {fileID: 0}
   target: {fileID: 0}
-  speed: 0.1
-  rotationSpeed: 1000
-  raycastRange: 1
+  speed: 0.075
+  rotationSpeed: 20
+  raycastRange: 0.1
   timeToRaycast: 1
   dissolveSpeed: 0.00175
   attackOrderGiven: 0

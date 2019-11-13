@@ -115,7 +115,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_2456D99: 1
-    - Vector1_9B5202C: 1
+    - Vector1_9B5202C: 0
     - Vector1_A2EE77CE: -0.01
     - _AlphaClip: 0
     - _Blend: 0
@@ -127,7 +127,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HologramPower: 1.1
+    - _HologramPower: -0.1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _PowerLineScale: 0.05
@@ -140,6 +140,7 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _alpha: 0
     m_Colors:
     - Color_1D541402: {r: 0, g: 0.52362734, b: 1.076187, a: 0.972549}
     - Color_F84685DB: {r: 0.5324098, g: 1.5861377, b: 2.1185474, a: 1}

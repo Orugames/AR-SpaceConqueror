@@ -19,7 +19,7 @@ public class EnemyAIController : MonoBehaviour
     public bool battleStarted;
     public bool AIDecisionMakingRunning;
 
-    [Range(1, 2)]
+    [Range(0.5f, 2)]
     public float playerPlanetDecisionWeight;
     [Range(0.5f, 2)]
     public float neutralPlanetDecisionWeight;
@@ -46,6 +46,7 @@ public class EnemyAIController : MonoBehaviour
     }
     public IEnumerator EnemyAITurn()
     {
+        yield return new WaitForSeconds(AITurnTime);
 
         while (AIDecisionMakingRunning || enemyPlanets.Count != 0)
         {

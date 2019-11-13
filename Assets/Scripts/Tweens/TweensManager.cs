@@ -6,6 +6,7 @@ public class TweensManager : MonoBehaviour
 {
     public static TweensManager instance = null;
 
+    public TableTween tableTween;
     public DoorsOpeningTween doorsOpeningTween;
     public PlanetsTween planetsTween;
     public LevelSelectorTween levelSelectorTween;
@@ -29,57 +30,7 @@ public class TweensManager : MonoBehaviour
 
         //Sets this to not be destroyed when reloading scene
         DontDestroyOnLoad(gameObject);
-    }
-
-    /*public void StartGameTween()
-    {
-        doorsOpeningTween.OpenDoorsTween();
 
     }
-
-    public void ExpandPlanetsTween()
-    {
-        planetsTween.ExpandInitialPlanetsTween();
-    }
-
-
-    // LEVEL SELECTOR TWEENS
-    public void ExpandLevelSelector()
-    {
-        levelSelectorTween.ExpandLevelSelector();
-    }
-    public void HideLevelSelector()
-    {
-        levelSelectorTween.HideLevelSelector();
-    }
-
-    // LEVEL BRIEFING TWEENS
-    public void ShowLevelBriefing()
-    {
-        levelBriefingTween.ShowBriefingScreen();
-    }
-    public void HideLevelBriefing()
-    {
-        levelBriefingTween.HideBriefingScreen();
-    }
-
-    // FLOOR SHADER TWEEN
-    public void ShowFloor()
-    {
-        floorShaderTween.ShowFloor();
-    }
-
-    // LEVEL COMPLETED TWEENS
-    public void ShowLevelCompleted()
-    {
-        levelCompletedTween.ShowLevelCompletedScreen();
-    }
-    public void HideLevelCompletedGoBack()
-    {
-        levelCompletedTween.HideLevelCompletedGoBack();
-    }
-    public void HideLevelCompletedNextLevel()
-    {
-        levelCompletedTween.HideLevelCompletedNextLevel();
-    }*/
+    
 }
